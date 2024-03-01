@@ -69,16 +69,59 @@ client.on(Events.InteractionCreate, async interaction => {
         try {
             maxMembers = parseInt(interaction.fields.getTextInputValue('maxMembers'));
         } catch (e) {
-            await interaction.reply({content: 'Max members must be a number', ephemeral: true});
+            embed = new EmbedBuilder()
+                .setColor('#041c3c')
+                .setTitle('Helpcord | Lounge')
+                .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Max members must be a number.`)
+                .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
+                .setTimestamp()
+                .setFooter({
+                    text: 'Helpcord | Multipurpose bot for Discord',
+                    iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                });
+
+            await interaction.reply({
+                embeds: [embed],
+                ephemeral: true
+            });
         }
 
         if (isNaN(maxMembers)) {
-            await interaction.reply({content: 'Max members must be a number', ephemeral: true});
+            embed = new EmbedBuilder()
+                .setColor('#041c3c')
+                .setTitle('Helpcord | Lounge')
+                .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Max members must be a number.`)
+                .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
+                .setTimestamp()
+                .setFooter({
+                    text: 'Helpcord | Multipurpose bot for Discord',
+                    iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                });
+
+            await interaction.reply({
+                embeds: [embed],
+                ephemeral: true
+            });
             return;
         }
 
         if (!categoryName.trim() || !channelName.trim()) {
-            await interaction.reply({ content: 'Category name or channel name cannot be empty.', ephemeral: true });
+
+            embed = new EmbedBuilder()
+                .setColor('#041c3c')
+                .setTitle('Helpcord | Lounge')
+                .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Names cannot be empty.`)
+                .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
+                .setTimestamp()
+                .setFooter({
+                    text: 'Helpcord | Multipurpose bot for Discord',
+                    iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                });
+
+            await interaction.reply({
+                embeds: [embed],
+                ephemeral: true
+            });
             return;
         }
 
