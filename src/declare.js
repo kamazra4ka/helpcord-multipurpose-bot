@@ -9,6 +9,18 @@ const commands = [
     {
         name: 'help',
         description: 'Get a quick overview of all bot\'s commands.',
+    },
+    {
+        name: 'lock',
+        description: 'Lock the channel for everyone.',
+        options: [
+            {
+                name: 'channel',
+                description: 'The channel to lock',
+                type: 7,
+                required: false,
+            }
+        ],
     }
 ];
 
