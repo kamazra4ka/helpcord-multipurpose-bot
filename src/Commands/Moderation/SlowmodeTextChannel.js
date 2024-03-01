@@ -88,8 +88,6 @@ export const SlowmodeTextChannel = async (interaction) => {
                 });
         }
 
-
-
         await interaction.reply({
             embeds: [embed],
             ephemeral: false
