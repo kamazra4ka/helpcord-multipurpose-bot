@@ -2,8 +2,9 @@ import {
     config
 } from 'dotenv';
 import {
+    ChannelType,
     Client,
-    EmbedBuilder,
+    EmbedBuilder, Events,
     GatewayIntentBits
 } from 'discord.js';
 import {
@@ -42,6 +43,58 @@ client.on('ready', () => {
         childMaxUsers: 3,
         childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
     });
+});
+
+client.on(Events.InteractionCreate, async interaction => {
+    if (!interaction.isModalSubmit()) return;
+
+    if (interaction.customId === 'setupTempVoicesModal') {
+        // Get the data entered by the user
+        const channelName = interaction.fields.getTextInputValue('channelName');
+        const categoryName = interaction.fields.getTextInputValue('categoryName');
+        let maxMembers = 3;
+        try {
+            maxMembers = parseInt(interaction.fields.getTextInputValue('maxMembers'));
+        } catch (e) {
+            await interaction.reply({content: 'Max members must be a number', ephemeral: true});
+        }
+
+        if (isNaN(maxMembers)) {
+            await interaction.reply({content: 'Max members must be a number', ephemeral: true});
+            return;
+        }
+
+        if (!categoryName.trim() || !channelName.trim()) {
+            await interaction.reply({ content: 'Category name or channel name cannot be empty.', ephemeral: true });
+            return;
+        }
+
+        try {
+            const category = await interaction.guild.channels.create({
+                name: categoryName,
+                type: ChannelType.GuildCategory,
+            });
+
+            const mainChannel = await interaction.guild.channels.create({
+                name: channelName,
+                type: ChannelType.GuildVoice,
+                parent: category.id,
+            });
+
+            await tempChannels.registerChannel(mainChannel.id, {
+                childCategory: category.id,
+                childAutoDeleteIfEmpty: true,
+                childMaxUsers: maxMembers,
+                childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
+            });
+
+            await interaction.reply({ content: `blah blah blah`, ephemeral: true });
+        } catch (error) {
+            console.error('Failed to create category or channel:', error);
+            await interaction.reply({ content: 'Failed to create category or channel. Please check the bot permissions and try again.', ephemeral: true });
+        }
+
+    }
 });
 
 client.on('interactionCreate', async interaction => {

@@ -6,7 +6,7 @@ import {
 
 export const showModal = async (interaction) => {
     const modal = new ModalBuilder()
-        .setCustomId('channelCategoryModal')
+        .setCustomId('setupTempVoicesModal')
         .setTitle('Temporary VC Setup');
 
     const channelNameInput = new TextInputBuilder()
@@ -15,6 +15,7 @@ export const showModal = async (interaction) => {
         .setStyle(TextInputStyle.Short)
         .setMinLength(1)
         .setMaxLength(32)
+        .setValue('➕ Create a lounge')
         .setPlaceholder('Enter the main channel name')
         .setRequired(true);
 
@@ -24,6 +25,7 @@ export const showModal = async (interaction) => {
         .setStyle(TextInputStyle.Short)
         .setMinLength(1)
         .setMaxLength(32)
+        .setValue('🗣️ User Lounges')
         .setPlaceholder('Enter the category name (optional)')
         .setRequired(true);
 
