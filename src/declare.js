@@ -53,7 +53,7 @@ const commands = [
         ],
     },
     {
-        name: 'voicesetup',
+        name: 'loungesetup',
         description: 'Setup temp voices system for your server.',
     }
 ];
