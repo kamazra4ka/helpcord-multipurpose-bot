@@ -26,24 +26,35 @@ const client = new Client({
 });
 
 import TempChannels from "@gamers-geek/discord-temp-channels";
+import {QuickDB} from "quick.db";
+const db = new QuickDB();
+
 import {showModal} from "./Handlers/TempVoices/showModalTempVoices.js";
 import {SetupTempVoices} from "./Commands/TempVoices/SetupTempVoices.js";
 const tempChannels = new TempChannels(client);
 
+
 config();
 const botToken = process.env.DISCORD_TOKEN;
 
-client.on('ready', () => {
+const defaultChildFormat = (member, count) => `#${count} | ${member.user.username}'s lounge`;
+
+client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
-    // Register a new main channel
-    tempChannels.registerChannel("1212377559669669931", {
-        childCategory: "1213073348838297631",
-        childAutoDeleteIfEmpty: true,
-        childMaxUsers: 3,
-        childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
+    const tempChannelsData = await db.get("temp-channels") || [];
+    console.log(tempChannelsData);
+
+    tempChannelsData.forEach(channelData => {
+        const options = {
+            ...channelData.options,
+            childFormat: defaultChildFormat
+        };
+
+        tempChannels.registerChannel(channelData.channelID, options);
     });
 });
+
 
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isModalSubmit()) return;
@@ -86,6 +97,18 @@ client.on(Events.InteractionCreate, async interaction => {
                 childAutoDeleteIfEmpty: true,
                 childMaxUsers: maxMembers,
                 childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
+            });
+
+            let options = {
+                childCategory: category.id,
+                childAutoDeleteIfEmpty: true,
+                childMaxUsers: maxMembers,
+                childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
+            }
+
+            await db.push("temp-channels", {
+                channelID: mainChannel.id,
+                options: options
             });
 
             await interaction.reply({ content: `blah blah blah`, ephemeral: true });
