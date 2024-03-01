@@ -225,6 +225,14 @@ client.on('interactionCreate', async interaction => {
         if (interaction.isButton()) {
             const customId = interaction.customId;
 
+            // if starts from invite
+            if (customId.startsWith('invite_')) {
+                await interaction.deferUpdate();
+                const inviteLink = customId.replace('invite_', '');
+                await interaction.followUp(`Invite your friends to the lounge: ${inviteLink}`);
+                return;
+            }
+
             switch (customId) {
                 case 'help_moderation':
                     await HelpButtons(interaction, 'moderation');

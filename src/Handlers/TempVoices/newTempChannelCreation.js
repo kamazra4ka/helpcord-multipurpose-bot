@@ -21,14 +21,19 @@ export const newTempChannelCreation = async (member, channel, parentChannel) => 
     try {
         const dm = await member.createDM();
 
-        // button with
+        const inviteLink = await channel.createInvite();
 
         const WebsiteButton = new ButtonBuilder()
-            .setLabel('Go to the lounge')
+            .setLabel('🌴 Go to the lounge')
             .setURL(`https://discord.com/channels/${channel.guild.id}/${channel.id}`)
             .setStyle(ButtonStyle.Link);
 
-        const row = new ActionRowBuilder().addComponents(WebsiteButton);
+        const InviteButton = new ButtonBuilder()
+            .setLabel('➕ Invite friends to the lounge')
+            .setCustomId(`invite_${inviteLink.url}`)
+            .setStyle(ButtonStyle.Secondary);
+
+        const row = new ActionRowBuilder().addComponents(WebsiteButton).addComponents(InviteButton);
 
         embed = new EmbedBuilder()
             .setColor('#041c3c')
