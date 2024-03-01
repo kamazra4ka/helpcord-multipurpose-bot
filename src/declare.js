@@ -18,7 +18,19 @@ const commands = [
                 name: 'channel',
                 description: 'The channel to lock',
                 type: 7,
-                required: false,
+                required: true,
+            }
+        ],
+    },
+    {
+        name: 'unlock',
+        description: 'Unlock the channel for everyone.',
+        options: [
+            {
+                name: 'channel',
+                description: 'The channel to unlock',
+                type: 7,
+                required: true,
             }
         ],
     }

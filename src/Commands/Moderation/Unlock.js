@@ -1,15 +1,13 @@
-import { PermissionFlagsBits, ChannelType, EmbedBuilder } from 'discord.js';
+import {PermissionFlagsBits, ChannelType, EmbedBuilder} from 'discord.js';
 
-export const Lock = async (interaction) => {
-    let channel = interaction.options.getChannel('channel'), embed;
-    if (!channel) {
-        let channel = interaction.channel;
-    } else if (channel.type !== ChannelType.GuildText) {
+export const Unlock = async (interaction) => {
+    let channel = interaction.options.getChannel('channel') || interaction.channel, embed;
 
+    if (channel.type !== ChannelType.GuildText) {
         embed = new EmbedBuilder()
             .setColor('#041c3c')
             .setTitle('Helpcord | Channel lockdown')
-            .setDescription(`**${interaction.user.username}**, you can only lock text channels.`)
+            .setDescription(`**${interaction.user.username}**, you can only unlock text channels.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213061264021127168/lock.png?ex=65f41a56&is=65e1a556&hm=df13deaa51df5a2dc0143185ae8dc59dda99f87f483c6f4560ef8fc4e1b11600&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
@@ -27,12 +25,11 @@ export const Lock = async (interaction) => {
     const everyoneRole = interaction.guild.roles.everyone;
     const permissions = channel.permissionOverwrites.cache.get(everyoneRole.id);
 
-    if (permissions && permissions.deny.has(PermissionFlagsBits.SendMessages)) {
-
+    if (permissions && !permissions.deny.has(PermissionFlagsBits.SendMessages)) {
         embed = new EmbedBuilder()
             .setColor('#041c3c')
             .setTitle('Helpcord | Channel lockdown')
-            .setDescription(`**${interaction.user.username}**, the channel is already locked.`)
+            .setDescription(`**${interaction.user.username}**, the channel you are trying to unlock is not locked`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213061264021127168/lock.png?ex=65f41a56&is=65e1a556&hm=df13deaa51df5a2dc0143185ae8dc59dda99f87f483c6f4560ef8fc4e1b11600&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
@@ -46,14 +43,14 @@ export const Lock = async (interaction) => {
         });
     } else {
         await channel.permissionOverwrites.edit(everyoneRole, {
-            SendMessages: false
+            SendMessages: null
         }, {
-            reason: 'Channel locked'
+            reason: 'Channel unlocked'
         });
         embed = new EmbedBuilder()
             .setColor('#041c3c')
             .setTitle('Helpcord | Channel lockdown')
-            .setDescription(`**${interaction.user.username}** locked the channel. No one can send messages in this channel until it's unlocked.`)
+            .setDescription(`**${interaction.user.username}** has unlocked the channel. Everyone can send messages in this channel now.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213061264021127168/lock.png?ex=65f41a56&is=65e1a556&hm=df13deaa51df5a2dc0143185ae8dc59dda99f87f483c6f4560ef8fc4e1b11600&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
