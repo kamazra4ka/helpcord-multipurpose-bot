@@ -7,7 +7,7 @@ import {
 export const showModal = async (interaction) => {
     const modal = new ModalBuilder()
         .setCustomId('setupTempVoicesModal')
-        .setTitle('Temporary VC Setup');
+        .setTitle('Lounge Setup');
 
     const channelNameInput = new TextInputBuilder()
         .setCustomId('channelName')
@@ -35,7 +35,7 @@ export const showModal = async (interaction) => {
         .setStyle(TextInputStyle.Short)
         .setMinLength(1)
         .setMaxLength(2)
-        .setValue('3')
+        .setValue('8')
         .setPlaceholder('Enter the members limit (optional)')
         .setRequired(false);
 

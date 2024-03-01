@@ -24,8 +24,13 @@ export const Help = async (interaction) => {
         .setCustomId('help_economy')
         .setStyle(ButtonStyle.Secondary);
 
+    const ServerButton = new ButtonBuilder()
+        .setLabel('⚙️ Server Management')
+        .setCustomId('help_server')
+        .setStyle(ButtonStyle.Secondary);
+
     const row = new ActionRowBuilder().addComponents(FunButton).addComponents(ModerationButton).addComponents(EconomyButton);
-    const row2 = new ActionRowBuilder().addComponents(WebsiteButton);
+    const row2 = new ActionRowBuilder().addComponents(ServerButton).addComponents(WebsiteButton);
 
     const startEmbed = new EmbedBuilder()
         .setColor('#041c3c')
