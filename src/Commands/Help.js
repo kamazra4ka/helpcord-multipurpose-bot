@@ -16,7 +16,7 @@ export const Help = async (interaction) => {
 
     const FunButton = new ButtonBuilder()
         .setLabel('🎉 Entertainment')
-        .setCustomId('help_enterntainment')
+        .setCustomId('help_entertainment')
         .setStyle(ButtonStyle.Secondary);
 
     const EconomyButton = new ButtonBuilder()
