@@ -14,7 +14,7 @@ export const HelpButtons = async (interaction, category) => {
             embed = new EmbedBuilder()
                 .setColor('#041c3c')
                 .setTitle('Helpcord | Moderation commands')
-                .setDescription('Hey! Helpcord is a multipurpose bot that can help you with a variety of tasks. Moderation, fun, economy and much more!\n\n`/lock` - Helps you to lock the channel in case of a raid.\n`/unlock` - Helps you to unlock the channel after a raid.\n`/slowmode` - Set a precise slowmode for the channel.')
+                .setDescription('Hey! Helpcord is a multipurpose bot that can help you with a variety of tasks. Moderation, fun, economy and much more!\n\n`/lock` - Helps you to lock the channel in case of a raid.\n`/unlock` - Unlocks the channel.\n`/slowmode` - Set a precise slowmode for the channel.')
                 .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213043629602639872/help.png?ex=65f409ea&is=65e194ea&hm=354028e7a08cc45e8657c5f3ecb80b0d5eca5d56243e6ffa0d357b2944961bce&=&format=webp&quality=lossless&width=687&height=186')
                 .setTimestamp()
                 .setFooter({

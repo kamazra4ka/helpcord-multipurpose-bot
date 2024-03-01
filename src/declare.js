@@ -33,7 +33,25 @@ const commands = [
                 required: true,
             }
         ],
-    }
+    },
+    {
+        name: 'slowmode',
+        description: 'Set a precise slowmode for the channel.',
+        options: [
+            {
+                name: 'channel',
+                description: 'The channel to set slowmode for',
+                type: 7,
+                required: true,
+            },
+            {
+                name: 'time',
+                description: 'The time in seconds for slowmode',
+                type: 4,
+                required: true,
+            }
+        ],
+    },
 ];
 
 const rest = new REST({ version: '10' }).setToken(botToken);

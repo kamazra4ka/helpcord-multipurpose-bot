@@ -12,6 +12,7 @@ import {
 import {Help} from "./Commands/Help.js";
 import {HelpButtons} from "./Handlers/HelpButtons.js";
 import {Unlock} from "./Commands/Moderation/Unlock.js";
+import {Slowmode} from "./Commands/Moderation/Slowmode.js";
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -40,6 +41,9 @@ client.on('interactionCreate', async interaction => {
                 break;
             case 'unlock':
                 await Unlock(interaction);
+                break;
+            case 'slowmode':
+                await Slowmode(interaction);
                 break;
             default:
                 break;
