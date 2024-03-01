@@ -7,6 +7,7 @@ import {
     GatewayIntentBits
 } from 'discord.js';
 import {Help} from "./Commands/Help.js";
+import {HelpButtons} from "./Handlers/HelpButtons.js";
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -35,7 +36,20 @@ client.on('interactionCreate', async interaction => {
         }
 
         if (interaction.isButton()) {
+            const customId = interaction.customId;
+            const embed = new EmbedBuilder();
 
+            switch (customId) {
+                case 'help_moderation':
+                    await HelpButtons(interaction, 'moderation');
+                    break;
+                case 'help_entertainment':
+                    await HelpButtons(interaction, 'entertainment');
+                    break;
+                case 'help_economy':
+                    await HelpButtons(interaction, 'economy');
+                    break;
+            }
         }
 
     } catch (error) {
@@ -43,6 +57,7 @@ client.on('interactionCreate', async interaction => {
         console.log(error)
     }
 });
+
 
 // client.on('messageCreate', async (message) => {
 //     if (message.author.bot) return;
