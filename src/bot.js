@@ -6,6 +6,7 @@ import {
     EmbedBuilder,
     GatewayIntentBits
 } from 'discord.js';
+import {Help} from "./Commands/Help.js";
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -26,6 +27,9 @@ client.on('interactionCreate', async interaction => {
     try {
 
         switch (interaction.commandName) {
+            case 'help':
+                await Help(interaction);
+                break;
             default:
                 break;
         }

@@ -7,16 +7,8 @@ const CLIENT_ID = process.env.CLIENT_ID;
 
 const commands = [
     {
-        name: 'start',
-        description: 'Starts the game!',
-    },
-    {
-        name: 'shop',
-        description: 'Opens the shop where you can buy additional power-ups!',
-    },
-    {
-        name: 'stop',
-        description: 'Stops all running games (requires admin rights)',
+        name: 'help',
+        description: 'Get a quick overview of all bot\'s commands.',
     }
 ];
 
