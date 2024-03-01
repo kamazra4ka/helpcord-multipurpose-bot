@@ -6,6 +6,9 @@ import {
     EmbedBuilder,
     GatewayIntentBits
 } from 'discord.js';
+import {
+    Lock
+} from "./Commands/Moderation/Lock.js";
 import {Help} from "./Commands/Help.js";
 import {HelpButtons} from "./Handlers/HelpButtons.js";
 const client = new Client({
@@ -30,6 +33,9 @@ client.on('interactionCreate', async interaction => {
         switch (interaction.commandName) {
             case 'help':
                 await Help(interaction);
+                break;
+            case 'lock':
+                await Lock(interaction);
                 break;
             default:
                 break;
@@ -59,8 +65,8 @@ client.on('interactionCreate', async interaction => {
 });
 
 
-// client.on('messageCreate', async (message) => {
-//     if (message.author.bot) return;
-// });
+ client.on('messageCreate', async (message) => {
+     if (message.author.bot) return;
+ });
 
 client.login(botToken);
