@@ -12,7 +12,7 @@ const commands = [
     },
     {
         name: 'lock',
-        description: 'Lock the channel for everyone.',
+        description: 'LockTextChannel the channel for everyone.',
         options: [
             {
                 name: 'channel',
@@ -24,7 +24,7 @@ const commands = [
     },
     {
         name: 'unlock',
-        description: 'Unlock the channel for everyone.',
+        description: 'UnlockTextChannel the channel for everyone.',
         options: [
             {
                 name: 'channel',
@@ -52,6 +52,10 @@ const commands = [
             }
         ],
     },
+    {
+        name: 'voicesetup',
+        description: 'Setup temp voices system for your server.',
+    }
 ];
 
 const rest = new REST({ version: '10' }).setToken(botToken);
