@@ -9,9 +9,23 @@ export const Help = async (interaction) => {
         .setURL('https://kamazra4ka.nl')
         .setStyle(ButtonStyle.Link);
 
+    const ModerationButton = new ButtonBuilder()
+        .setLabel('🛡️ Moderation')
+        .setCustomId('help_moderation')
+        .setStyle(ButtonStyle.Secondary);
 
+    const FunButton = new ButtonBuilder()
+        .setLabel('🎉 Entertainment')
+        .setCustomId('help_enterntainment')
+        .setStyle(ButtonStyle.Secondary);
 
-    const row = new ActionRowBuilder().addComponents(WebsiteButton);
+    const EconomyButton = new ButtonBuilder()
+        .setLabel('🏦 Economy')
+        .setCustomId('help_economy')
+        .setStyle(ButtonStyle.Secondary);
+
+    const row = new ActionRowBuilder().addComponents(FunButton).addComponents(ModerationButton).addComponents(EconomyButton);
+    const row2 = new ActionRowBuilder().addComponents(WebsiteButton);
 
     const startEmbed = new EmbedBuilder()
         .setColor('#041c3c')
@@ -26,7 +40,7 @@ export const Help = async (interaction) => {
 
     await interaction.reply({
         content: '',
-        components: [row],
+        components: [row, row2],
         embeds: [startEmbed]
     });
 }
