@@ -31,6 +31,7 @@ const db = new QuickDB();
 
 import {showModal} from "./Handlers/TempVoices/showModalTempVoices.js";
 import {SetupTempVoices} from "./Commands/TempVoices/SetupTempVoices.js";
+import {newTempChannelCreation} from "./Handlers/TempVoices/newTempChannelCreation.js";
 const tempChannels = new TempChannels(client);
 
 
@@ -52,7 +53,12 @@ client.on('ready', async () => {
         };
 
         tempChannels.registerChannel(channelData.channelID, options);
+
     });
+});
+
+tempChannels.on("childCreate", async (member, channel, parentChannel) => {
+    await newTempChannelCreation(member, channel, parentChannel)
 });
 
 
@@ -228,6 +234,9 @@ client.on('interactionCreate', async interaction => {
                     break;
                 case 'help_economy':
                     await HelpButtons(interaction, 'economy');
+                    break;
+                case 'help_server':
+                    await HelpButtons(interaction, 'server');
                     break;
             }
         }
