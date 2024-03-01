@@ -19,14 +19,27 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildVoiceStates
     ],
 });
+
+import TempChannels from "@gamers-geek/discord-temp-channels";
+const tempChannels = new TempChannels(client);
 
 config();
 const botToken = process.env.DISCORD_TOKEN;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
+    // Register a new main channel
+    tempChannels.registerChannel("1212377559669669931", {
+        childCategory: "1213073348838297631",
+        childAutoDeleteIfEmpty: true,
+        childMaxUsers: 3,
+        childFormat: (member, count) => `#${count} | ${member.user.username}'s lounge`
+    });
 });
 
 client.on('interactionCreate', async interaction => {
