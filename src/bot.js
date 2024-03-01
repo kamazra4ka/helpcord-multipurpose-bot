@@ -7,12 +7,12 @@ import {
     GatewayIntentBits
 } from 'discord.js';
 import {
-    Lock
-} from "./Commands/Moderation/Lock.js";
+    LockTextChannel
+} from "./Commands/Moderation/LockTextChannel.js";
 import {Help} from "./Commands/Help.js";
 import {HelpButtons} from "./Handlers/HelpButtons.js";
-import {Unlock} from "./Commands/Moderation/Unlock.js";
-import {Slowmode} from "./Commands/Moderation/Slowmode.js";
+import {UnlockTextChannel} from "./Commands/Moderation/UnlockTextChannel.js";
+import {SlowmodeTextChannel} from "./Commands/Moderation/SlowmodeTextChannel.js";
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -25,6 +25,8 @@ const client = new Client({
 });
 
 import TempChannels from "@gamers-geek/discord-temp-channels";
+import {showModal} from "./Handlers/TempVoices/showModalTempVoices.js";
+import {SetupTempVoices} from "./Commands/TempVoices/SetupTempVoices.js";
 const tempChannels = new TempChannels(client);
 
 config();
@@ -50,13 +52,16 @@ client.on('interactionCreate', async interaction => {
                 await Help(interaction);
                 break;
             case 'lock':
-                await Lock(interaction);
+                await LockTextChannel(interaction);
                 break;
             case 'unlock':
-                await Unlock(interaction);
+                await UnlockTextChannel(interaction);
                 break;
             case 'slowmode':
-                await Slowmode(interaction);
+                await SlowmodeTextChannel(interaction);
+                break;
+            case 'voicesetup':
+                await SetupTempVoices(interaction);
                 break;
             default:
                 break;
@@ -64,7 +69,6 @@ client.on('interactionCreate', async interaction => {
 
         if (interaction.isButton()) {
             const customId = interaction.customId;
-            const embed = new EmbedBuilder();
 
             switch (customId) {
                 case 'help_moderation':
