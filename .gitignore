@@ -1,3 +1,4 @@
 /src/.env
 /node_modules/
 /package-lock.json
+/src/json.sqlite
