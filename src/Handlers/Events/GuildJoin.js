@@ -1,9 +1,11 @@
 import {newGuild} from "../Database/Guilds.js";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} from "discord.js";
+import {addAllMembers} from "../Database/Users.js";
 
-export const guildJoin = async (guild) => {
+export const GuildJoin = async (guild) => {
 
     await newGuild(guild);
+    await addAllMembers(guild);
 
     // get guild's system channel
     const systemChannel = guild.systemChannel;
