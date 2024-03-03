@@ -55,6 +55,18 @@ const commands = [
     {
         name: 'loungesetup',
         description: 'Setup temp voices system for your server.',
+    },
+    {
+        name: 'setcolor',
+        description: 'Set the HEX color of the embeds for the bot on this server.',
+        options: [
+            {
+                name: 'color',
+                description: 'The color to set in HEX format (#000000)',
+                type: 3,
+                required: true,
+            }
+        ]
     }
 ];
 
