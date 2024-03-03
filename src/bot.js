@@ -4,16 +4,43 @@ import {
 import {
     ChannelType,
     Client,
-    EmbedBuilder, Events,
+    EmbedBuilder,
+    Events,
     GatewayIntentBits
 } from 'discord.js';
 import {
     LockTextChannel
 } from "./Commands/Moderation/LockTextChannel.js";
-import {Help} from "./Commands/Help.js";
-import {HelpButtons} from "./Handlers/HelpButtons.js";
-import {UnlockTextChannel} from "./Commands/Moderation/UnlockTextChannel.js";
-import {SlowmodeTextChannel} from "./Commands/Moderation/SlowmodeTextChannel.js";
+import {
+    Help
+} from "./Commands/Help.js";
+import {
+    HelpButtons
+} from "./Handlers/HelpButtons.js";
+import {
+    UnlockTextChannel
+} from "./Commands/Moderation/UnlockTextChannel.js";
+import {
+    SlowmodeTextChannel
+} from "./Commands/Moderation/SlowmodeTextChannel.js";
+import TempChannels from "@gamers-geek/discord-temp-channels";
+import {
+    QuickDB
+} from "quick.db";
+import {
+    showModal
+} from "./Handlers/TempVoices/showModalTempVoices.js";
+import {
+    SetupTempVoices
+} from "./Commands/TempVoices/SetupTempVoices.js";
+import {
+    newTempChannelCreation
+} from "./Handlers/TempVoices/newTempChannelCreation.js";
+import {
+    tempVoiceModalHandler
+} from "./Handlers/TempVoices/tempVoiceModalHandler.js";
+import {guildJoin} from "./Handlers/Events/GuildJoin.js";
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -25,17 +52,8 @@ const client = new Client({
     ],
 });
 
-import TempChannels from "@gamers-geek/discord-temp-channels";
-import {QuickDB} from "quick.db";
-const db = new QuickDB();
-
-import {showModal} from "./Handlers/TempVoices/showModalTempVoices.js";
-import {SetupTempVoices} from "./Commands/TempVoices/SetupTempVoices.js";
-import {newTempChannelCreation} from "./Handlers/TempVoices/newTempChannelCreation.js";
-import {tempVoiceModalHandler} from "./Handlers/TempVoices/tempVoiceModalHandler.js";
 const tempChannels = new TempChannels(client);
-
-
+const db = new QuickDB();
 config();
 const botToken = process.env.DISCORD_TOKEN;
 
@@ -69,6 +87,15 @@ client.on(Events.InteractionCreate, async interaction => {
     if (interaction.customId === 'setupTempVoicesModal') {
         await tempVoiceModalHandler(interaction, tempChannels, db)
     }
+});
+
+client.on('guildCreate', async guild => {
+    await guildJoin(guild);
+});
+
+client.on('guildMemberAdd', member => {
+    console.log(`New User "${member.user.username}" has joined "${member.guild.name}"`);
+
 });
 
 client.on('interactionCreate', async interaction => {
@@ -127,9 +154,8 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-
- client.on('messageCreate', async (message) => {
-     if (message.author.bot) return;
- });
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
+});
 
 client.login(botToken);
