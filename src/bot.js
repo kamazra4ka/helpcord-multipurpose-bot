@@ -40,6 +40,7 @@ import {
     tempVoiceModalHandler
 } from "./Handlers/TempVoices/tempVoiceModalHandler.js";
 import {GuildLeave} from "./Handlers/Events/GuildLeave.js";
+import {GuildJoin} from "./Handlers/Events/GuildJoin.js";
 
 const client = new Client({
     intents: [
@@ -90,7 +91,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.on('guildCreate', async guild => {
-    await GuildLeave(guild);
+    await GuildJoin(guild);
 });
 
 client.on('guildDelete', async guild => {
