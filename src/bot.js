@@ -98,9 +98,8 @@ client.on('guildDelete', async guild => {
     await GuildLeave(guild);
 })
 
-client.on('guildMemberAdd', member => {
-    console.log(`New User "${member.user.username}" has joined "${member.guild.name}"`);
-
+client.on('guildMemberAdd', async member => {
+    await UserJoin(member);
 });
 
 client.on('interactionCreate', async interaction => {

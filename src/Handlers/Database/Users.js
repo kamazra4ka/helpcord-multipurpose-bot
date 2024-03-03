@@ -37,3 +37,24 @@ export const addAllMembers = async (guild) => {
             });
         });
 }
+
+export const AddUser = async (member) => {
+    const userId = member.user.id;
+    const serverDiscordId = member.guild.id;
+    const joinedAt = member.joinedAt;
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        connection.query('INSERT users SET user_discord_id = ?, user_server_id = ?, user_joined_at = ?', [userId, serverDiscordId, joinedAt], async (err, rows) => {
+            connection.release();
+            if (err) {
+                console.error(err);
+                return;
+            }
+        });
+    });
+}
