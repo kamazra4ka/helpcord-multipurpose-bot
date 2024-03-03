@@ -45,3 +45,20 @@ export const getEmbed = async (serverId) => {
         });
     });
 }
+
+export const setEmbed = async (serverId, color) => {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        connection.query('INSERT INTO settings (settings_server_id, settings_embed) VALUES (?, ?) ON DUPLICATE KEY UPDATE settings_embed = ?', [serverId, color, color], (err, rows) => {
+            connection.release();
+            if (err) {
+                console.error(err);
+                return;
+            }
+        });
+    });
+}

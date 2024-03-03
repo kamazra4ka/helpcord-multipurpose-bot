@@ -42,6 +42,7 @@ import {
 import {GuildLeave} from "./Handlers/Events/GuildLeave.js";
 import {GuildJoin} from "./Handlers/Events/GuildJoin.js";
 import {UserJoin} from "./Handlers/Events/UserJoin.js";
+import {SetColor} from "./Commands/Customization/setColor.js";
 
 const client = new Client({
     intents: [
@@ -121,6 +122,9 @@ client.on('interactionCreate', async interaction => {
                 break;
             case 'loungesetup':
                 await SetupTempVoices(interaction);
+                break;
+            case 'setcolor':
+                await SetColor(interaction);
                 break;
             default:
                 break;
