@@ -39,7 +39,7 @@ import {
 import {
     tempVoiceModalHandler
 } from "./Handlers/TempVoices/tempVoiceModalHandler.js";
-import {guildJoin} from "./Handlers/Events/GuildJoin.js";
+import {GuildLeave} from "./Handlers/Events/GuildLeave.js";
 
 const client = new Client({
     intents: [
@@ -90,8 +90,12 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.on('guildCreate', async guild => {
-    await guildJoin(guild);
+    await GuildLeave(guild);
 });
+
+client.on('guildDelete', async guild => {
+    await GuildLeave(guild);
+})
 
 client.on('guildMemberAdd', member => {
     console.log(`New User "${member.user.username}" has joined "${member.guild.name}"`);

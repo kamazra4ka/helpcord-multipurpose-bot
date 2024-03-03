@@ -33,3 +33,22 @@ pool.getConnection((err, connection) => {
         });
     });
 }
+
+export const removeGuild = async (guild) => {
+    const serverDiscordId = guild.id;
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        connection.query('DELETE FROM servers WHERE server_discord_id = ?', [serverDiscordId], async (err, rows) => {
+            connection.release();
+            if (err) {
+                console.error(err);
+                return;
+            }
+        });
+    });
+}
