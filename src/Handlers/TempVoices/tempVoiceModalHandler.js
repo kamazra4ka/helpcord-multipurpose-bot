@@ -1,4 +1,5 @@
 import {ChannelType, EmbedBuilder} from "discord.js";
+import {getEmbed} from "../Database/Customization.js";
 
 export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
     let embed;
@@ -10,7 +11,7 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
         maxMembers = parseInt(interaction.fields.getTextInputValue('maxMembers'));
     } catch (e) {
         embed = new EmbedBuilder()
-            .setColor('#041c3c')
+            .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Lounge')
             .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Max members must be a number.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
@@ -28,7 +29,7 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
 
     if (isNaN(maxMembers)) {
         embed = new EmbedBuilder()
-            .setColor('#041c3c')
+            .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Lounge')
             .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Max members must be a number.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
@@ -48,7 +49,7 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
     if (!categoryName.trim() || !channelName.trim()) {
 
         embed = new EmbedBuilder()
-            .setColor('#041c3c')
+            .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Lounge')
             .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Names cannot be empty.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
@@ -97,7 +98,7 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
         });
 
         embed = new EmbedBuilder()
-            .setColor('#041c3c')
+            .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Lounge')
             .setDescription(`**${interaction.user.username}**, you have successfully set up lounges for your server. Members can now join the main channel and create their own lounges.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
@@ -114,7 +115,7 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
     } catch (error) {
         console.error('Failed to create category or channel:', error);
         embed = new EmbedBuilder()
-            .setColor('#041c3c')
+            .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Lounge')
             .setDescription(`**${interaction.user.username}**, an error occurred while creating the category or channel. Please check bot's permissions and try again.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')

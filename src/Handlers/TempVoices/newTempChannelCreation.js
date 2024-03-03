@@ -1,4 +1,5 @@
 import {PermissionsBitField, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder} from 'discord.js';
+import {getEmbed} from "../Database/Customization.js";
 
 export const newTempChannelCreation = async (member, channel, parentChannel) => {
 
@@ -36,7 +37,7 @@ export const newTempChannelCreation = async (member, channel, parentChannel) => 
         const row = new ActionRowBuilder().addComponents(WebsiteButton).addComponents(InviteButton);
 
         embed = new EmbedBuilder()
-            .setColor('#041c3c')
+            .setColor(await getEmbed(channel.guild.id))
             .setTitle('Helpcord | Lounge')
             .setDescription(`**${member.user.username}**, you have created a new lounge. You can invite your friends and talk there.\n\nYou can edit the name of the lounge and other settings (such as the limit of members) by clicking on the settings icon next to the channel name.`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
