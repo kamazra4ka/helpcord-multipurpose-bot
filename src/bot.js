@@ -41,6 +41,7 @@ import {
 } from "./Handlers/TempVoices/tempVoiceModalHandler.js";
 import {GuildLeave} from "./Handlers/Events/GuildLeave.js";
 import {GuildJoin} from "./Handlers/Events/GuildJoin.js";
+import {UserJoin} from "./Handlers/Events/UserJoin.js";
 
 const client = new Client({
     intents: [
