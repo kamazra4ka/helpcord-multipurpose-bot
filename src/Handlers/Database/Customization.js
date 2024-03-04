@@ -88,27 +88,29 @@ export const turnBranding = async (serverId, boolean) => {
 }
 
 export const getBranding = async (serverId) => {
-    // if branding is turned off, return false
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {
             if (err) {
                 console.error(err);
-                reject(err);
+                return reject(err); // Make sure to return here
             }
 
             connection.query('SELECT * FROM settings WHERE settings_server_id = ?', [serverId], (err, rows) => {
                 connection.release();
                 if (err) {
                     console.error(err);
-                    reject(err);
+                    return reject(err); // Make sure to return here
                 }
 
-                if (rows[0].length !== 0) {
+                // Check if rows exist and if the first row is not empty
+                if (rows && rows.length !== 0) {
                     if (rows[0].settings_branding === 0) {
                         resolve(false);
                     } else {
                         resolve(true);
                     }
+                } else {
+                    resolve(false); // Resolve with false if no rows are returned
                 }
             });
         });
