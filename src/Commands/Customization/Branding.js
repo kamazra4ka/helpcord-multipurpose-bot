@@ -12,8 +12,7 @@ export const Branding = async (interaction) => {
         await turnBranding(interaction.guildId, false);
     }
 
-    let footerText= await getFooterDetails(interaction)
-    let footerIcon = await getFooterDetails(interaction)
+    let footer= await getFooterDetails(interaction)
 
     const startEmbed = new EmbedBuilder()
         .setColor(await getEmbed(interaction.guildId))
@@ -22,8 +21,8 @@ export const Branding = async (interaction) => {
         .setImage('https://media.discordapp.net/attachments/1212377559669669930/1214127739729350666/branding.png?ex=65f7fb92&is=65e58692&hm=397d525ce2a68e53a5917daf2afd38f18d1a5012add12c714d401ed002456c5e&=&format=webp&quality=lossless&width=1586&height=431')
         .setTimestamp()
         .setFooter({
-            text: `${footerText}`,
-            iconURL: `${footerIcon}`
+            text: `${footer.footerText}`,
+            iconURL: `${footer.footerIcon}`
         });
 
     await interaction.reply({
