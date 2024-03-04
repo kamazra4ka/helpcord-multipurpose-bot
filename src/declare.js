@@ -67,6 +67,10 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'branding',
+        description: 'Enable your server\'s branding of the bot on this server.',
     }
 ];
 
