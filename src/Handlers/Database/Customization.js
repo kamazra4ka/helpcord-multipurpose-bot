@@ -63,7 +63,13 @@ export const setEmbed = async (serverId, color) => {
     });
 }
 
-export const turnBranding = async (serverId) => {
+export const turnBranding = async (serverId, boolean) => {
+
+    if (boolean) {
+        boolean = 1;
+    } else {
+        boolean = 0;
+    }
 
     pool.getConnection((err, connection) => {
         if (err) {
@@ -71,49 +77,14 @@ export const turnBranding = async (serverId) => {
             return;
         }
 
-        connection.query('SELECT * FROM settings WHERE settings_server_id = ?', [serverId], (err, rows) => {
+        connection.query('UPDATE settings SET settings_branding = ? WHERE settings_server_id = ?', [boolean, serverId], (err, rows) => {
             connection.release();
             if (err) {
                 console.error(err);
                 return;
             }
-
-            if (rows[0].length !== 0) {
-                if (rows[0].settings_branding === 0) {
-                    pool.getConnection((err, connection) => {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
-
-                        connection.query('UPDATE settings SET settings_branding = 1 WHERE settings_server_id = ?', [serverId], (err, rows) => {
-                            connection.release();
-                            if (err) {
-                                console.error(err);
-                                return;
-                            }
-                        });
-                    });
-                } else {
-                    pool.getConnection((err, connection) => {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
-
-                        connection.query('UPDATE settings SET settings_branding = 0 WHERE settings_server_id = ?', [serverId], (err, rows) => {
-                            connection.release();
-                            if (err) {
-                                console.error(err);
-                                return;
-                            }
-                        });
-                    });
-                }
-            }
         });
     });
-
 }
 
 export const getBranding = async (serverId) => {
