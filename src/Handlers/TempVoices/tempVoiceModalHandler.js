@@ -1,7 +1,10 @@
 import {ChannelType, EmbedBuilder} from "discord.js";
 import {getEmbed} from "../Database/Customization.js";
+import {getFooterDetails} from "../getFooterDetails.js";
 
 export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
+
+    const footer = await getFooterDetails(interaction);
     let embed;
     // Get the data entered by the user
     const channelName = interaction.fields.getTextInputValue('channelName');
@@ -17,8 +20,8 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
@@ -35,8 +38,8 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
@@ -55,8 +58,8 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
@@ -104,8 +107,8 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
@@ -121,8 +124,8 @@ export const tempVoiceModalHandler = async (interaction, tempChannels, db) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({

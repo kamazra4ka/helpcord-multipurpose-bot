@@ -1,8 +1,10 @@
 import { PermissionFlagsBits, ChannelType, EmbedBuilder } from 'discord.js';
 import {getEmbed} from "../../Handlers/Database/Customization.js";
+import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
 
 export const LockTextChannel = async (interaction) => {
     let channel = interaction.options.getChannel('channel'), embed;
+    const footer = await getFooterDetails(interaction);
     if (!channel) {
         let channel = interaction.channel;
     } else if (channel.type !== ChannelType.GuildText) {
@@ -14,8 +16,8 @@ export const LockTextChannel = async (interaction) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213061264021127168/lock.png?ex=65f41a56&is=65e1a556&hm=df13deaa51df5a2dc0143185ae8dc59dda99f87f483c6f4560ef8fc4e1b11600&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
@@ -37,8 +39,8 @@ export const LockTextChannel = async (interaction) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213061264021127168/lock.png?ex=65f41a56&is=65e1a556&hm=df13deaa51df5a2dc0143185ae8dc59dda99f87f483c6f4560ef8fc4e1b11600&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
@@ -58,8 +60,8 @@ export const LockTextChannel = async (interaction) => {
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213061264021127168/lock.png?ex=65f41a56&is=65e1a556&hm=df13deaa51df5a2dc0143185ae8dc59dda99f87f483c6f4560ef8fc4e1b11600&=&format=webp&quality=lossless&width=1440&height=391')
             .setTimestamp()
             .setFooter({
-                text: 'Helpcord | Multipurpose bot for Discord',
-                iconURL: 'https://media.discordapp.net/attachments/1212377559669669930/1213033923853029396/7206b41c-5f05-47dc-87cd-d6433649b201.png?ex=65f400e0&is=65e18be0&hm=330ee0af24766736475e0627ab2c87cbfa42055ff2b25bde191a21269a349930&=&format=webp&quality=lossless&width=487&height=487'
+                text: `${footer.footerText}`,
+                iconURL: `${footer.footerIcon}`
             });
 
         await interaction.reply({
