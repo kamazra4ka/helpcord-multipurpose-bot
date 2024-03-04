@@ -115,3 +115,31 @@ export const turnBranding = async (serverId) => {
     });
 
 }
+
+export const getBranding = async (serverId) => {
+    // if branding is turned off, return false
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+            }
+
+            connection.query('SELECT * FROM settings WHERE settings_server_id = ?', [serverId], (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                }
+
+                if (rows[0].length !== 0) {
+                    if (rows[0].settings_branding === 0) {
+                        resolve(false);
+                    } else {
+                        resolve(true);
+                    }
+                }
+            });
+        });
+    });
+}

@@ -43,6 +43,7 @@ import {GuildLeave} from "./Handlers/Events/GuildLeave.js";
 import {GuildJoin} from "./Handlers/Events/GuildJoin.js";
 import {UserJoin} from "./Handlers/Events/UserJoin.js";
 import {SetColor} from "./Commands/Customization/setColor.js";
+import {Branding} from "./Commands/Customization/Branding.js";
 
 const client = new Client({
     intents: [
