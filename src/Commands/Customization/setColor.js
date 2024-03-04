@@ -12,7 +12,7 @@ export const SetColor = async (interaction) => {
             .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Customization')
             .setDescription(`**${interaction.user.username}**, the color you provided is not a valid HEX color.`)
-            .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213043629602639872/help.png?ex=65f409ea&is=65e194ea&hm=354028e7a08cc45e8657c5f3ecb80b0d5eca5d56243e6ffa0d357b2944961bce&=&format=webp&quality=lossless&width=687&height=186')
+            .setImage('https://media.discordapp.net/attachments/1212377559669669930/1214127377035296848/color.png?ex=65f7fb3c&is=65e5863c&hm=1558cd3dc01f074c4c29cfb2d6d848c50f147e4f86e2926b4dae85dd5163f799&=&format=webp&quality=lossless&width=1586&height=431')
             .setTimestamp()
             .setFooter({
                 text: 'Helpcord | Multipurpose bot for Discord',
@@ -30,7 +30,7 @@ export const SetColor = async (interaction) => {
             .setColor(color)
             .setTitle('Helpcord | Customization')
             .setDescription(`**${interaction.user.username}**, the color for the bot's embeds on this server has been set to **${color}**.`)
-            .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213043629602639872/help.png?ex=65f409ea&is=65e194ea&hm=354028e7a08cc45e8657c5f3ecb80b0d5eca5d56243e6ffa0d357b2944961bce&=&format=webp&quality=lossless&width=687&height=186')
+            .setImage('https://media.discordapp.net/attachments/1212377559669669930/1214127377035296848/color.png?ex=65f7fb3c&is=65e5863c&hm=1558cd3dc01f074c4c29cfb2d6d848c50f147e4f86e2926b4dae85dd5163f799&=&format=webp&quality=lossless&width=1586&height=431')
             .setTimestamp()
             .setFooter({
                 text: 'Helpcord | Multipurpose bot for Discord',
