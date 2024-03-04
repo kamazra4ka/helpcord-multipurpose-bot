@@ -126,6 +126,9 @@ client.on('interactionCreate', async interaction => {
             case 'setcolor':
                 await SetColor(interaction);
                 break;
+            case 'branding':
+                await Branding(interaction);
+                break;
             default:
                 break;
         }

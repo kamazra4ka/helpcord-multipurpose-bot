@@ -62,3 +62,56 @@ export const setEmbed = async (serverId, color) => {
         });
     });
 }
+
+export const turnBranding = async (serverId) => {
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        connection.query('SELECT * FROM settings WHERE settings_server_id = ?', [serverId], (err, rows) => {
+            connection.release();
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            if (rows[0].length !== 0) {
+                if (rows[0].settings_branding === 0) {
+                    pool.getConnection((err, connection) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+
+                        connection.query('UPDATE settings SET settings_branding = 1 WHERE settings_server_id = ?', [serverId], (err, rows) => {
+                            connection.release();
+                            if (err) {
+                                console.error(err);
+                                return;
+                            }
+                        });
+                    });
+                } else {
+                    pool.getConnection((err, connection) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+
+                        connection.query('UPDATE settings SET settings_branding = 0 WHERE settings_server_id = ?', [serverId], (err, rows) => {
+                            connection.release();
+                            if (err) {
+                                console.error(err);
+                                return;
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    });
+
+}
