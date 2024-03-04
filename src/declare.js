@@ -71,6 +71,25 @@ const commands = [
     {
         name: 'branding',
         description: 'Enable your server\'s branding of the bot on this server.',
+        // choice between "server" and "bot"
+        options: [
+            {
+                name: 'type',
+                description: 'The type of branding',
+                type: 3,
+                required: true,
+                choices: [
+                    {
+                        name: 'Server',
+                        value: 'server'
+                    },
+                    {
+                        name: 'Bot',
+                        value: 'bot'
+                    }
+                ]
+            }
+        ]
     }
 ];
 
