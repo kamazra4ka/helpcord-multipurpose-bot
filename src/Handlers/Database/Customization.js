@@ -53,7 +53,7 @@ export const setEmbed = async (serverId, color) => {
             return;
         }
 
-        connection.query('INSERT INTO settings (settings_server_id, settings_embed) VALUES (?, ?) ON DUPLICATE KEY UPDATE settings_embed = ?', [serverId, color, color], (err, rows) => {
+        connection.query('UPDATE settings SET settings_embed = ? WHERE settings_server_id = ?', [color, serverId], (err, rows) => {
             connection.release();
             if (err) {
                 console.error(err);

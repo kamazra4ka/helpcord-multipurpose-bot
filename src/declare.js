@@ -64,7 +64,7 @@ const commands = [
                 name: 'color',
                 description: 'The color to set in HEX format (#000000)',
                 type: 3,
-                required: true,
+                required: true
             }
         ]
     }
