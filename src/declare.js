@@ -90,6 +90,10 @@ const commands = [
                 ]
             }
         ]
+    },
+    {
+        name: 'welcome',
+        description: 'Create a welcome (greetings) channel for your server.',
     }
 ];
 
