@@ -1,5 +1,5 @@
 import {showModalWelcomeCreate} from "../../Handlers/Welcome/showModalWelcomeCreate.js";
-import {EmbedBuilder} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} from "discord.js";
 import {getEmbed} from "../../Handlers/Database/Customization.js";
 import {checkWelcome} from "../../Handlers/Database/Welcome.js";
 import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
@@ -9,6 +9,24 @@ export const welcomeChannelCreate = async (interaction) => {
         await showModalWelcomeCreate(interaction)
     } else {
         const footer = await getFooterDetails(interaction);
+
+
+        const editImage = new ButtonBuilder()
+            .setLabel('🌆 Edit image')
+            .setCustomId(`welcome_image_${channel.id}`)
+            .setStyle(ButtonStyle.Secondary);
+
+        const editMessage = new ButtonBuilder()
+            .setLabel('✏️ Edit message')
+            .setCustomId(`welcome_message_${channel.id}`)
+            .setStyle(ButtonStyle.Secondary);
+
+        const deleteChannel = new ButtonBuilder()
+            .setLabel('🗑️ Delete channel')
+            .setCustomId(`welcome_delete_${channel.id}`)
+            .setStyle(ButtonStyle.Danger);
+
+        const row = new ActionRowBuilder().addComponents(editImage).addComponents(editMessage).addComponents(deleteChannel);
 
         const startEmbed = new EmbedBuilder()
             .setColor(await getEmbed(interaction.guildId))
@@ -23,7 +41,7 @@ export const welcomeChannelCreate = async (interaction) => {
 
         await interaction.reply({
             content: '',
-        //    components: [row, row2],
+            components: [row],
             embeds: [startEmbed]
         });
     }
