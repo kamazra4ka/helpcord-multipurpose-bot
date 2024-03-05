@@ -45,6 +45,7 @@ import {UserJoin} from "./Handlers/Events/UserJoin.js";
 import {SetColor} from "./Commands/Customization/setColor.js";
 import {Branding} from "./Commands/Customization/Branding.js";
 import {welcomeChannelCreate} from "./Commands/Welcome/welcomeChannelCreate.js";
+import {welcomeChannelModalHandler} from "./Handlers/Welcome/welcomeChannelModalHandler.js";
 
 const client = new Client({
     intents: [
@@ -91,6 +92,10 @@ client.on(Events.InteractionCreate, async interaction => {
 
     if (interaction.customId === 'setupTempVoicesModal') {
         await tempVoiceModalHandler(interaction, tempChannels, db)
+    }
+
+    if (interaction.customId === 'setupWelcomeChannelModal') {
+        await welcomeChannelModalHandler(interaction)
     }
 });
 
