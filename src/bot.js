@@ -28,7 +28,7 @@ import {
     QuickDB
 } from "quick.db";
 import {
-    showModal
+    showModalTempVoices
 } from "./Handlers/TempVoices/showModalTempVoices.js";
 import {
     SetupTempVoices
@@ -44,6 +44,7 @@ import {GuildJoin} from "./Handlers/Events/GuildJoin.js";
 import {UserJoin} from "./Handlers/Events/UserJoin.js";
 import {SetColor} from "./Commands/Customization/setColor.js";
 import {Branding} from "./Commands/Customization/Branding.js";
+import {welcomeChannelCreate} from "./Commands/Welcome/welcomeChannelCreate.js";
 
 const client = new Client({
     intents: [
@@ -129,6 +130,9 @@ client.on('interactionCreate', async interaction => {
                 break;
             case 'branding':
                 await Branding(interaction);
+                break;
+            case 'welcome':
+                await welcomeChannelCreate(interaction)
                 break;
             default:
                 break;

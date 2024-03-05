@@ -4,7 +4,7 @@ import {
     ModalBuilder, TextInputBuilder
 } from 'discord.js';
 
-export const showModal = async (interaction) => {
+export const showModalTempVoices = async (interaction) => {
     const modal = new ModalBuilder()
         .setCustomId('setupTempVoicesModal')
         .setTitle('Lounge Setup');
