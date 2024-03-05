@@ -1,7 +1,7 @@
 import {showModalWelcomeCreate} from "../../Handlers/Welcome/showModalWelcomeCreate.js";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} from "discord.js";
 import {getEmbed} from "../../Handlers/Database/Customization.js";
-import {checkWelcome} from "../../Handlers/Database/Welcome.js";
+import {checkWelcome, getWelcomeChannel} from "../../Handlers/Database/Welcome.js";
 import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
 
 export const welcomeChannelCreate = async (interaction) => {
@@ -10,20 +10,22 @@ export const welcomeChannelCreate = async (interaction) => {
     } else {
         const footer = await getFooterDetails(interaction);
 
+        const channel = await getWelcomeChannel(interaction.guild.id);
+        console.log(channel)
 
         const editImage = new ButtonBuilder()
             .setLabel('🌆 Edit image')
-            .setCustomId(`welcome_image_${channel.id}`)
+            .setCustomId(`welcome_image_${channel.welcome_channel_id}`)
             .setStyle(ButtonStyle.Secondary);
 
         const editMessage = new ButtonBuilder()
             .setLabel('✏️ Edit message')
-            .setCustomId(`welcome_message_${channel.id}`)
+            .setCustomId(`welcome_message_${channel.welcome_channel_id}`)
             .setStyle(ButtonStyle.Secondary);
 
         const deleteChannel = new ButtonBuilder()
             .setLabel('🗑️ Delete channel')
-            .setCustomId(`welcome_delete_${channel.id}`)
+            .setCustomId(`welcome_delete_${channel.welcome_channel_id}`)
             .setStyle(ButtonStyle.Danger);
 
         const row = new ActionRowBuilder().addComponents(editImage).addComponents(editMessage).addComponents(deleteChannel);
