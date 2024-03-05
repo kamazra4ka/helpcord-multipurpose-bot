@@ -27,7 +27,9 @@ export const checkWelcome = async (serverId) => {
                     return;
                 }
 
-                if (rows.length > 0) {
+                console.log(rows);
+
+                if (rows.length === 1) {
                     resolve(true);
                 } else {
                     resolve(false);

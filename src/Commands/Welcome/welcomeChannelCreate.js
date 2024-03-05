@@ -5,7 +5,7 @@ import {checkWelcome} from "../../Handlers/Database/Welcome.js";
 import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
 
 export const welcomeChannelCreate = async (interaction) => {
-    if (await checkWelcome(interaction.guild.id)) {
+    if (!await checkWelcome(interaction.guild.id)) {
         await showModalWelcomeCreate(interaction)
     } else {
         const footer = await getFooterDetails(interaction);
