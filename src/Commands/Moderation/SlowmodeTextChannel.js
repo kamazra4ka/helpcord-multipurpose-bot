@@ -1,16 +1,18 @@
 import { ChannelType, PermissionFlagsBits, EmbedBuilder } from 'discord.js';
 import {getEmbed} from "../../Handlers/Database/Customization.js";
 import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
+import {checkPermissions} from "../../Handlers/Permissions.js";
 let embed;
 
 export const SlowmodeTextChannel = async (interaction) => {
     const footer = await getFooterDetails(interaction);
-    if (!interaction.member.permissions.has(PermissionFlagsBits.ManageChannels)) {
+
+    if (!await checkPermissions(interaction, 'MANAGE_CHANNELS')) {
         embed = new EmbedBuilder()
             .setColor(await getEmbed(interaction.guildId))
-            .setTitle('Helpcord | SlowmodeTextChannel')
-            .setDescription(`**${interaction.user.username}**, you don't have the required permissions to set slowmode in this channel.`)
-            .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213069333241274368/slowmode.png?ex=65f421da&is=65e1acda&hm=ad202b710a8ff2aebb81f5024766e0b9bf71a317f27fed5bc2504460a3ba8831&=&format=webp&quality=lossless&width=1440&height=391')
+            .setTitle('Helpcord | Permissions')
+            .setDescription(`**${interaction.user.username}**, you don't have the required permissions to continue with this action.`)
+            .setImage('https://media.discordapp.net/attachments/1212377559669669930/1214942980490665994/permissions.png?ex=65faf2d3&is=65e87dd3&hm=f678dd79a9ea3f583e703b43a40acd14286b248e20958c3bbbb3625df39217ec&=&format=webp&quality=lossless&width=1921&height=521')
             .setTimestamp()
             .setFooter({
                 text: `${footer.footerText}`,
