@@ -33,7 +33,7 @@ export const welcomeChannelCreate = async (interaction) => {
         const startEmbed = new EmbedBuilder()
             .setColor(await getEmbed(interaction.guildId))
             .setTitle('Helpcord | Welcome Setup')
-            .setDescription(`**${interaction.user.username}**, you already have a welcome channel set up. If you want to edit settings of the welcome channel, please use the buttons below.\n\nWelcome channel was deleted? Click on the button to remove it from the system.`)
+            .setDescription(`**${interaction.user.username}**, you already have a welcome channel set up. If you want to edit settings of the welcome channel, please use the buttons below.\n\nWelcome channel was deleted? Click on the button to remove it from the system.\n**Welcome channel:** <#${channel.welcome_channel_id}>`)
             .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213043629602639872/help.png?ex=65f409ea&is=65e194ea&hm=354028e7a08cc45e8657c5f3ecb80b0d5eca5d56243e6ffa0d357b2944961bce&=&format=webp&quality=lossless&width=687&height=186')
             .setTimestamp()
             .setFooter({
