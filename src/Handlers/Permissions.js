@@ -1,4 +1,4 @@
-const { PermissionsBitField } = require('discord.js');
+import { PermissionsBitField } from 'discord.js';
 
 export const checkPermissions = async (interaction, scope) => {
     switch (scope) {
