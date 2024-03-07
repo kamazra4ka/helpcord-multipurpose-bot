@@ -22,14 +22,14 @@ const applyText = (canvas, text) => {
     let fontSize = 70;
 
     do {
-        context.font = `${fontSize -= 10}px bahnschrift`;
+        context.font = `${fontSize -= 10}px gg sans Medium`;
         // Compare pixel width of the text to the canvas minus the approximate avatar size
     } while (context.measureText(text).width > canvas.width - 300);
 
     return context.font;
 };
 
-export const welcomeCard = async (member, welcomeInfo, serverColor) => {
+export const welcomeCard = async (member, welcomeInfo, serverColor, welcomeMessage) => {
     const canvas = Canvas.createCanvas(700, 250);
     const context = canvas.getContext('2d');
 
@@ -59,19 +59,19 @@ export const welcomeCard = async (member, welcomeInfo, serverColor) => {
     context.lineWidth = 5;
     context.stroke();
 
-    context.font = '28px ROG Fonts';
+    context.font = '48px ROG Fonts';
     context.fillStyle = '#ffffff';
-    context.fillText('Welcome!', canvas.width / 2.5, canvas.height / 2.2);
+    context.fillText('Welcome!', canvas.width / 2.5, canvas.height / 1.8);
 
-    context.font = applyText(canvas, member.displayName);
-    context.fillStyle = '#ffffff';
-    context.fillText(member.displayName, canvas.width / 2.5, canvas.height / 1.5);
+  //  context.font = applyText(canvas, member.displayName);
+  //  context.fillStyle = '#ffffff';
+  //  context.fillText(member.displayName, canvas.width / 2.5, canvas.height / 1.6);
 
     const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: 'welcome.png' });
 
     const welcomeChannel = member.guild.channels.cache.get(welcomeInfo.welcome_channel_id);
     try {
-        welcomeChannel.send({ files: [attachment] });
+        welcomeChannel.send(welcomeMessage, { files: [attachment] });
     } catch (e) {
         console.log(e);
     }

@@ -18,9 +18,9 @@ export const UserJoin = async (member) => {
         const serverColor = await getEmbed(member.guild.id);
 
         if (!welcomeImage) {
-            await welcomeCard(member, welcomeInfo, serverColor);
+            await welcomeCard(member, welcomeInfo, serverColor, welcomeMessage);
         } else {
-            await welcomeCardImage(member, welcomeInfo, serverColor);
+            await welcomeCardImage(member, welcomeInfo, serverColor, welcomeMessage);
         }
 
     }
