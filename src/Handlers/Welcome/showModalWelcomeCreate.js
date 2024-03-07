@@ -19,6 +19,15 @@ export const showModalWelcomeCreate = async (interaction) => {
         .setPlaceholder('Enter the welcome/greetings channel name')
         .setRequired(true);
 
+    const channelImage = new TextInputBuilder()
+        .setCustomId('channelImage')
+        .setLabel('Welcome image background')
+        .setStyle(TextInputStyle.Short)
+        .setMinLength(1)
+        .setMaxLength(512)
+        .setPlaceholder('Leave empty to use a default image')
+        .setRequired(false);
+
     const categoryNameInput = new TextInputBuilder()
         .setCustomId('channelMessage')
         .setLabel('Message')
@@ -30,9 +39,10 @@ export const showModalWelcomeCreate = async (interaction) => {
         .setRequired(true);
 
     const firstActionRow = new ActionRowBuilder().addComponents(channelNameInput);
-    const secondActionRow = new ActionRowBuilder().addComponents(categoryNameInput);
+    const secondActionRow = new ActionRowBuilder().addComponents(channelImage);
+    const thirdActionRow = new ActionRowBuilder().addComponents(categoryNameInput);
 
-    modal.addComponents(firstActionRow, secondActionRow);
+    modal.addComponents(firstActionRow, secondActionRow, thirdActionRow);
 
     await interaction.showModal(modal);
 };

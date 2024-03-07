@@ -66,14 +66,14 @@ export const getWelcome = async (serverId) => {
     });
 }
 
-export const addWelcomeChannel = async (serverId, channelId, message) => {
+export const addWelcomeChannel = async (serverId, channelId, message, channelImage) => {
     pool.getConnection((err, connection) => {
         if (err) {
             console.error(err);
             return;
         }
 
-        connection.query('INSERT welcome SET welcome_server_id = ?, welcome_channel_id = ?, welcome_message = ?', [serverId, channelId, message], async (err, rows) => {
+        connection.query('INSERT welcome SET welcome_server_id = ?, welcome_channel_id = ?, welcome_message = ?, welcome_image = ?', [serverId, channelId, message, channelImage], async (err, rows) => {
             connection.release();
             if (err) {
                 console.error(err);

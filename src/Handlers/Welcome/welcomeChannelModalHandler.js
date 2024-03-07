@@ -7,6 +7,13 @@ export const welcomeChannelModalHandler = async (interaction) => {
     // get info from modal fields
     const channelName = interaction.fields.getTextInputValue('channelName');
     const channelMessage = interaction.fields.getTextInputValue('channelMessage');
+    let channelImage;
+
+    if (interaction.fields.getTextInputValue('channelImage')) {
+        channelImage = interaction.fields.getTextInputValue('channelImage');
+    } else {
+        channelImage = '';
+    }
 
     console.log(channelName, channelMessage);
 
@@ -15,7 +22,7 @@ export const welcomeChannelModalHandler = async (interaction) => {
         type: ChannelType.GuildText,
     });
 
-    await addWelcomeChannel(interaction.guildId, channel.id, channelMessage);
+    await addWelcomeChannel(interaction.guildId, channel.id, channelMessage, channelImage);
 
     const footer = await getFooterDetails(interaction);
 
