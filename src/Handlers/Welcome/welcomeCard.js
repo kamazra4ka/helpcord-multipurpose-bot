@@ -83,3 +83,58 @@ export const welcomeCard = async (member, welcomeInfo, serverColor, welcomeMessa
         console.log(e);
     }
 }
+
+export const welcomeCardImage = async (member, welcomeInfo, serverColor, welcomeMessage) => {
+    try {
+        const canvas = Canvas.createCanvas(700, 250);
+        const context = canvas.getContext('2d');
+
+        const background = await Canvas.loadImage(welcomeInfo.welcome_image);
+        context.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+        // Draw stroke around the canvas
+        context.strokeStyle = serverColor;
+        context.lineWidth = 10; // Set the line width for the stroke
+        context.strokeRect(0, 0, canvas.width, canvas.height);
+
+        // Load the avatar image
+        const avatar = await Canvas.loadImage(member.displayAvatarURL({ extension: 'jpg' }));
+
+        const avatarX = 25, avatarY = 25, avatarWidth = 200, avatarHeight = 200, borderRadius = 20;
+        drawRoundedRect(context, avatarX, avatarY, avatarWidth, avatarHeight, borderRadius);
+        context.save();
+        context.clip();
+
+        context.drawImage(avatar, avatarX, avatarY, avatarWidth, avatarHeight);
+
+        context.restore(); // If you've previously called context.save() to save the canvas state
+        context.save(); // Save the canvas state if further clipping operations are expected
+
+        await drawRoundedRect(context, avatarX, avatarY, avatarWidth, avatarHeight, borderRadius);
+        context.strokeStyle = serverColor;
+        context.lineWidth = 5;
+        context.stroke();
+
+        context.font = '48px ROG Fonts';
+        context.fillStyle = '#ffffff';
+        context.fillText('Welcome!', canvas.width / 2.5, canvas.height / 1.8);
+
+        //  context.font = applyText(canvas, member.displayName);
+        //  context.fillStyle = '#ffffff';
+        //  context.fillText(member.displayName, canvas.width / 2.5, canvas.height / 1.6);
+
+        const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: 'welcome.png' });
+
+        const welcomeChannel = member.guild.channels.cache.get(welcomeInfo.welcome_channel_id);
+        try {
+            await welcomeChannel.send({
+                content: welcomeMessage,
+                files: [attachment]
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}

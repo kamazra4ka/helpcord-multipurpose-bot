@@ -21,7 +21,7 @@ export const showModalWelcomeCreate = async (interaction) => {
 
     const channelImage = new TextInputBuilder()
         .setCustomId('channelImage')
-        .setLabel('Welcome image background')
+        .setLabel('Welcome image background URL')
         .setStyle(TextInputStyle.Short)
         .setMinLength(1)
         .setMaxLength(512)
