@@ -28,17 +28,17 @@ export const welcomeChannelModalHandler = async (interaction) => {
 
     const editImage = new ButtonBuilder()
         .setLabel('🌆 Edit image')
-        .setCustomId(`welcome_image_${channel.id}`)
+        .setCustomId(`welcome_image`)
         .setStyle(ButtonStyle.Secondary);
 
     const editMessage = new ButtonBuilder()
         .setLabel('✏️ Edit message')
-        .setCustomId(`welcome_message_${channel.id}`)
+        .setCustomId(`welcome_message`)
         .setStyle(ButtonStyle.Secondary);
 
     const deleteChannel = new ButtonBuilder()
         .setLabel('🗑️ Delete channel')
-        .setCustomId(`welcome_delete_${channel.id}`)
+        .setCustomId(`welcome_delete`)
         .setStyle(ButtonStyle.Danger);
 
     const row = new ActionRowBuilder().addComponents(editImage).addComponents(editMessage).addComponents(deleteChannel);
