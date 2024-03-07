@@ -30,6 +30,7 @@ const applyText = (canvas, text) => {
 };
 
 export const welcomeCard = async (member, welcomeInfo, serverColor, welcomeMessage) => {
+    try {
     const canvas = Canvas.createCanvas(700, 250);
     const context = canvas.getContext('2d');
 
@@ -75,6 +76,9 @@ export const welcomeCard = async (member, welcomeInfo, serverColor, welcomeMessa
             content: welcomeMessage,
             files: [attachment]
         });
+        } catch (e) {
+            console.log(e);
+        }
     } catch (e) {
         console.log(e);
     }
