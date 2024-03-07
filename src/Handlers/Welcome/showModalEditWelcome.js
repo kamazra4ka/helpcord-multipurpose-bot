@@ -6,6 +6,7 @@ import {
 import {checkPermissions} from "../Permissions.js";
 import {getEmbed} from "../Database/Customization.js";
 import {getFooterDetails} from "../getFooterDetails.js";
+import {getWelcome} from "../Database/Welcome.js";
 
 export const ModalEditImage = async (interaction) => {
 
@@ -73,6 +74,9 @@ export const ModalEditMessage = async (interaction) => {
         return;
     }
 
+    const currentWelcome = await getWelcome(interaction.guild.id);
+    const currentMessage = currentWelcome.welcome_message;
+
     const modal = new ModalBuilder()
         .setCustomId('editMessageModal')
         .setTitle('Edit message');
@@ -83,7 +87,7 @@ export const ModalEditMessage = async (interaction) => {
         .setStyle(TextInputStyle.Paragraph)
         .setMinLength(1)
         .setMaxLength(2000)
-        .setValue('**\$count** | Hey, **\$user**! Welcome to **\$server**! We hope you enjoy your stay!')
+        .setValue(`${currentMessage}`)
         .setPlaceholder('Use \$count for the member count, \$user for the user\'s name and \$server for the server name.')
         .setRequired(true);
 
