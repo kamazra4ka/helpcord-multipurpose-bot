@@ -59,13 +59,13 @@ export const welcomeCard = async (member, welcomeInfo, serverColor) => {
     context.lineWidth = 5;
     context.stroke();
 
-    context.font = '28px sans-serif';
+    context.font = '28px ROG Fonts';
     context.fillStyle = '#ffffff';
-    context.fillText('Welcome!', canvas.width / 2.5, canvas.height / 3.5);
+    context.fillText('Welcome!', canvas.width / 2.5, canvas.height / 2.2);
 
     context.font = applyText(canvas, member.displayName);
     context.fillStyle = '#ffffff';
-    context.fillText(member.displayName, canvas.width / 2.5, canvas.height / 1.8);
+    context.fillText(member.displayName, canvas.width / 2.5, canvas.height / 1.5);
 
     const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: 'welcome.png' });
 
