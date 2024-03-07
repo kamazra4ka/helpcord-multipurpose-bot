@@ -123,7 +123,7 @@ export const ModalDeleteWelcomeChannel = async (interaction) => {
 
     const modal = new ModalBuilder()
         .setCustomId('deleteWelcomeModal')
-        .setTitle('Are you sure that you want to delete your welcome channel?');
+        .setTitle('Are you sure?');
 
     await interaction.showModal(modal);
 };
