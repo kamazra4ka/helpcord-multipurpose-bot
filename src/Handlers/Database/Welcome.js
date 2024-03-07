@@ -104,6 +104,44 @@ export const getWelcomeChannel = async (serverId) => {
     });
 }
 
+export const editWelcome = async (serverId, field, message) => {
+
+    if (field === "message") {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            connection.query('UPDATE welcome SET welcome_message = ? WHERE welcome_server_id = ?', [message, serverId], async (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+            });
+        });
+    } else {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            connection.query('UPDATE welcome SET welcome_image = ? WHERE welcome_server_id = ?', [message, serverId], async (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+            });
+        });
+
+    }
+
+
+}
+
 export const deleteWelcomeChannel = async (serverId) => {
     pool.getConnection((err, connection) => {
         if (err) {

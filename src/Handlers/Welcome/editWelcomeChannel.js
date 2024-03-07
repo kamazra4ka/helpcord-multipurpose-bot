@@ -1,4 +1,4 @@
-import {deleteWelcomeChannel, getWelcome} from "../Database/Welcome.js";
+import {deleteWelcomeChannel, editWelcome, getWelcome} from "../Database/Welcome.js";
 import {EmbedBuilder} from "discord.js";
 import {getEmbed} from "../Database/Customization.js";
 import {getFooterDetails} from "../getFooterDetails.js";
@@ -11,16 +11,15 @@ export const editWelcomeChannel = async (interaction, editType) => {
     switch (editType) {
         case 'image':
             if (interaction.fields.getTextInputValue('channelImage')) {
-
+                await editWelcome(interaction.guildId, 'image', interaction.fields.getTextInputValue('channelImage'));
             } else {
-
+                await editWelcome(interaction.guildId, 'image', null);
             }
             break;
         case 'message':
-            await editWelcomeMessage(interaction);
+            await editWelcome(interaction.guildId, 'message', interaction.fields.getTextInputValue('channelMessage'));
             break;
         case 'delete':
-
             if (interaction.fields.getTextInputValue('confirmDelete') === 'DELETE') {
 
             const footer = await getFooterDetails(interaction);
