@@ -59,7 +59,7 @@ export const showModalWelcomeCreate = async (interaction) => {
         .setStyle(TextInputStyle.Paragraph)
         .setMinLength(1)
         .setMaxLength(2000)
-        .setValue('**\$count** | Hey, **\$user**! Welcome to **\$server**! We hope you enjoy your stay!')
+        .setValue('**#\$count** | Hey, **\$user**! Welcome to **\$server**! We hope you enjoy your stay!')
         .setPlaceholder('Use \$count for the member count, \$user for the user\'s name and \$server for the server name.')
         .setRequired(true);
 
