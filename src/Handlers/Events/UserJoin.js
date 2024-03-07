@@ -1,6 +1,7 @@
 import {AddUser} from "../Database/Users.js";
 import {checkWelcome, getWelcome} from "../Database/Welcome.js";
-import {welcomeCard, welcomeCardImage} from "../Welcome/welcomeCard.js";
+import {welcomeCard} from "../Welcome/welcomeCard.js";
+import {getEmbed} from "../Database/Customization.js";
 
 export const UserJoin = async (member) => {
 
@@ -14,11 +15,12 @@ export const UserJoin = async (member) => {
 
         const welcomeChannel = welcomeInfo.welcome_channel_id;
         const welcomeImage = welcomeInfo.welcome_image;
+        const serverColor = await getEmbed(member.guild.id);
 
         if (!welcomeImage) {
-            await welcomeCard(member, welcomeInfo);
+            await welcomeCard(member, welcomeInfo, serverColor);
         } else {
-            await welcomeCardImage(member, welcomeInfo);
+            await welcomeCardImage(member, welcomeInfo, serverColor);
         }
 
     }
