@@ -71,7 +71,10 @@ export const welcomeCard = async (member, welcomeInfo, serverColor, welcomeMessa
 
     const welcomeChannel = member.guild.channels.cache.get(welcomeInfo.welcome_channel_id);
     try {
-        welcomeChannel.send(welcomeMessage, { files: [attachment] });
+        await welcomeChannel.send({
+            content: welcomeMessage,
+            files: [attachment]
+        });
     } catch (e) {
         console.log(e);
     }
