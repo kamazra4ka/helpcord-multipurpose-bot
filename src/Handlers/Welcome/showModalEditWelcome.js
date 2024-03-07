@@ -123,7 +123,20 @@ export const ModalDeleteWelcomeChannel = async (interaction) => {
 
     const modal = new ModalBuilder()
         .setCustomId('deleteWelcomeModal')
-        .setTitle('Are you sure?');
+        .setTitle('Welcome channel deletion');
+
+    const confirmField = new TextInputBuilder()
+        .setCustomId('confirmDelete')
+        .setLabel('Confirm deletion')
+        .setStyle(TextInputStyle.Short)
+        .setMinLength(1)
+        .setMaxLength(6)
+        .setPlaceholder('Type DELETE to confirm')
+        .setRequired(true);
+
+    const firstActionRow = new ActionRowBuilder().addComponents(confirmField);
+
+    modal.addComponents(firstActionRow);
 
     await interaction.showModal(modal);
 };
