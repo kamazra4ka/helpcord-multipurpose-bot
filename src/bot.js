@@ -46,6 +46,8 @@ import {SetColor} from "./Commands/Customization/setColor.js";
 import {Branding} from "./Commands/Customization/Branding.js";
 import {welcomeChannelCreate} from "./Commands/Welcome/welcomeChannelCreate.js";
 import {welcomeChannelModalHandler} from "./Handlers/Welcome/welcomeChannelModalHandler.js";
+import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Handlers/Welcome/showModalEditWelcome.js";
+import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 
 const client = new Client({
     intents: [
@@ -90,13 +92,26 @@ tempChannels.on("childCreate", async (member, channel, parentChannel) => {
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isModalSubmit()) return;
 
-    if (interaction.customId === 'setupTempVoicesModal') {
-        await tempVoiceModalHandler(interaction, tempChannels, db)
+    switch (interaction.customId) {
+        case 'setupTempVoicesModal':
+            await tempVoiceModalHandler(interaction, tempChannels, db)
+            break;
+        case 'setupWelcomeChannelModal':
+            await welcomeChannelModalHandler(interaction)
+            break;
+        case 'editImageModal':
+            await editWelcomeChannel(interaction, 'image');
+            break;
+        case 'editMessageModal':
+            await editWelcomeChannel(interaction, 'message');
+            break;
+        case 'deleteWelcomeModal':
+            await editWelcomeChannel(interaction, 'delete');
+            break;
+        default:
+            break;
     }
 
-    if (interaction.customId === 'setupWelcomeChannelModal') {
-        await welcomeChannelModalHandler(interaction)
-    }
 });
 
 client.on('guildCreate', async guild => {
@@ -151,6 +166,25 @@ client.on('interactionCreate', async interaction => {
                 await interaction.deferUpdate();
                 const inviteLink = customId.replace('invite_', '');
                 await interaction.followUp(`Invite your friends to the lounge: ${inviteLink}`);
+                return;
+            }
+
+            // if starts from welcome
+            if (customId.startsWith('welcome_')) {
+                const welcomeId = customId.replace('welcome_', '');
+                const command = welcomeId.split('_')[0];
+                console.log(command)
+                switch (command) {
+                    case 'image':
+                        await ModalEditImage(interaction);
+                        break;
+                    case 'message':
+                        await ModalEditMessage(interaction);
+                        break;
+                    case 'delete':
+                        await ModalDeleteWelcomeChannel(interaction);
+                        break;
+                }
                 return;
             }
 

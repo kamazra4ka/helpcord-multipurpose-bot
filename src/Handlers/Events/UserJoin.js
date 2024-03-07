@@ -1,6 +1,6 @@
 import {AddUser} from "../Database/Users.js";
 import {checkWelcome, getWelcome} from "../Database/Welcome.js";
-import {welcomeCard} from "../Welcome/welcomeCard.js";
+import {welcomeCard, welcomeCardImage} from "../Welcome/welcomeCard.js";
 import {getEmbed} from "../Database/Customization.js";
 
 export const UserJoin = async (member) => {

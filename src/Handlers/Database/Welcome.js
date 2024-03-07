@@ -103,3 +103,20 @@ export const getWelcomeChannel = async (serverId) => {
         });
     });
 }
+
+export const deleteWelcomeChannel = async (serverId) => {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        connection.query('DELETE FROM welcome WHERE welcome_server_id = ?', [serverId], async (err, rows) => {
+            connection.release();
+            if (err) {
+                console.error(err);
+                return;
+            }
+        });
+    });
+}
