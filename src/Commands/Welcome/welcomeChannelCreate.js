@@ -1,4 +1,4 @@
-import {showModalWelcomeCreate} from "../../Handlers/Welcome/showModalWelcomeCreate.js";
+import {showModalWelcomeCreate} from "../../Handlers/Welcome/Modals/showModalWelcomeCreate.js";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} from "discord.js";
 import {getEmbed} from "../../Handlers/Database/Customization.js";
 import {checkWelcome, getWelcomeChannel} from "../../Handlers/Database/Welcome.js";

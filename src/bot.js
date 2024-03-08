@@ -29,7 +29,7 @@ import {
 } from "quick.db";
 import {
     showModalTempVoices
-} from "./Handlers/TempVoices/showModalTempVoices.js";
+} from "./Handlers/TempVoices/Modals/showModalTempVoices.js";
 import {
     SetupTempVoices
 } from "./Commands/TempVoices/SetupTempVoices.js";
@@ -39,14 +39,14 @@ import {
 import {
     tempVoiceModalHandler
 } from "./Handlers/TempVoices/tempVoiceModalHandler.js";
-import {GuildLeave} from "./Handlers/Events/GuildLeave.js";
-import {GuildJoin} from "./Handlers/Events/GuildJoin.js";
-import {UserJoin} from "./Handlers/Events/UserJoin.js";
+import {GuildLeave} from "./Handlers/Events/Guild/GuildLeave.js";
+import {GuildJoin} from "./Handlers/Events/Guild/GuildJoin.js";
+import {UserJoin} from "./Handlers/Events/User/UserJoin.js";
 import {SetColor} from "./Commands/Customization/setColor.js";
 import {Branding} from "./Commands/Customization/Branding.js";
 import {welcomeChannelCreate} from "./Commands/Welcome/welcomeChannelCreate.js";
 import {welcomeChannelModalHandler} from "./Handlers/Welcome/welcomeChannelModalHandler.js";
-import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Handlers/Welcome/showModalEditWelcome.js";
+import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Handlers/Welcome/Modals/showModalEditWelcome.js";
 import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
 

@@ -1,7 +1,7 @@
-import {newGuild} from "../Database/Guilds.js";
+import {newGuild} from "../../Database/Guilds.js";
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} from "discord.js";
-import {addAllMembers} from "../Database/Users.js";
-import {getFooterDetails} from "../getFooterDetails.js";
+import {addAllMembers} from "../../Database/Users.js";
+import {getFooterDetails} from "../../getFooterDetails.js";
 
 export const GuildJoin = async (guild) => {
 

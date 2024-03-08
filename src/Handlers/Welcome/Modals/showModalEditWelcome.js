@@ -3,10 +3,10 @@ import {
     TextInputStyle,
     ModalBuilder, TextInputBuilder, EmbedBuilder
 } from 'discord.js';
-import {checkPermissions} from "../Permissions.js";
-import {getEmbed} from "../Database/Customization.js";
-import {getFooterDetails} from "../getFooterDetails.js";
-import {getWelcome} from "../Database/Welcome.js";
+import {checkPermissions} from "../../Permissions.js";
+import {getEmbed} from "../../Database/Customization.js";
+import {getFooterDetails} from "../../getFooterDetails.js";
+import {getWelcome} from "../../Database/Welcome.js";
 
 export const ModalEditImage = async (interaction) => {
 
