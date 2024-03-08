@@ -52,7 +52,7 @@ import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Han
 import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
 import {writeLog} from "./Handlers/Database/Logs.js";
-import {checkPunishments, getUserPunishments, isLoungeBanned} from "./Handlers/Database/Punishments.js";
+import {checkPunishments, endPunishment, getUserPunishments, isLoungeBanned} from "./Handlers/Database/Punishments.js";
 import {TempVoicesBan} from "./Commands/Moderation/TempVoicesBan.js";
 import {getEmbed} from "./Handlers/Database/Customization.js";
 import {getFooterDetails} from "./Handlers/getFooterDetails.js";
@@ -94,12 +94,14 @@ client.on('ready', async () => {
     setInterval(async () => {
         const endedPunishments = await checkPunishments();
         if (endedPunishments) {
-            endedPunishments.forEach(punishment => {
+            for (const punishment of endedPunishments) {
                 console.log(punishment)
-            });
+                await endPunishment(punishment.punishment_internal_id)
+            }
         }
+        console.log('Checking for ended punishments')
         // 60000
-    }, 50000);
+    }, 5000);
 });
 
 tempChannels.on("childCreate", async (member, channel, parentChannel) => {
@@ -122,7 +124,8 @@ tempChannels.on("childCreate", async (member, channel, parentChannel) => {
             const moderatorMention = `<@${moderator.id}>`;
             const reason = activeBan.punishment_reason;
 
-            const endDate = activeBan.punishment_end;
+            let endDate = activeBan.punishment_end / 1000;
+            endDate = endDate.toString().split('.')[0];
             const discordDate = `<t:${endDate}:F>`
 
             const embed = new EmbedBuilder()
