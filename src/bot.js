@@ -50,6 +50,7 @@ import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Han
 import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
 import {writeLog} from "./Handlers/Database/Logs.js";
+import {checkPunishments} from "./Handlers/Database/Punishments.js";
 
 const client = new Client({
     intents: [
@@ -84,12 +85,24 @@ client.on('ready', async () => {
         tempChannels.registerChannel(channelData.channelID, options);
 
     });
+
+    setInterval(async () => {
+        const endedPunishments = await checkPunishments();
+        if (endedPunishments.length > 0) {
+            endedPunishments.forEach(punishment => {
+                console.log(punishment)
+            });
+        }
+        // 60000
+    }, 50000);
 });
 
 tempChannels.on("childCreate", async (member, channel, parentChannel) => {
     await newTempChannelCreation(member, channel, parentChannel)
     await writeLog(member.id, member.guild.id, 'TEMP_CHANNEL_CREATE');
 });
+
+
 
 
 client.on(Events.InteractionCreate, async interaction => {
