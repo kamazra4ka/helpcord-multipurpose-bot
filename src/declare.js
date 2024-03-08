@@ -94,6 +94,30 @@ const commands = [
     {
         name: 'welcome',
         description: 'Create a welcome (greetings) channel for your server.',
+    },
+    {
+        name: 'banlounges',
+        description: 'Ban a user from creating new lounges.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to ban',
+                type: 6,
+                required: true
+            },
+            {
+                name: 'reason',
+                description: 'The reason for the ban',
+                type: 3,
+                required: true
+            },
+            {
+                name: 'duration',
+                description: 'The duration of the ban (1m = 1 minute, 1h = 1 hour, 1d = 1 day, etc)',
+                type: 3,
+                required: true
+            }
+        ]
     }
 ];
 
