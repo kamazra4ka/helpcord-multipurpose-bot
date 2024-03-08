@@ -15,6 +15,7 @@ const pool = mysql.createPool({
 export const writePunishment = async (userId, moderatorId, serverId, punishmentType, punishmentReason, punishmentEnd) => {
 
     const punishmentStart = new Date().getTime();
+    punishmentEnd = punishmentStart + punishmentEnd;
 
     pool.getConnection((err, connection) => {
         if (err) {
