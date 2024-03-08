@@ -3,12 +3,13 @@ import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
 import {checkPermissions} from "../../Handlers/Permissions.js";
 import {EmbedBuilder} from "discord.js";
 import {getEmbed} from "../../Handlers/Database/Customization.js";
-import {writePunishment} from "../../Handlers/Database/Punishments.js";
+import {getUserPunishments, writePunishment} from "../../Handlers/Database/Punishments.js";
 import {writeLog} from "../../Handlers/Database/Logs.js";
 
 export const TempVoicesBan = async interaction => {
 
     const footer = await getFooterDetails(interaction);
+    const userPunishments = await getUserPunishments(interaction.user.id, interaction.guildId);
 
     if (!await checkPermissions(interaction, 'BAN_MEMBERS')) {
         const embed = new EmbedBuilder()
@@ -36,6 +37,14 @@ export const TempVoicesBan = async interaction => {
     if (!user) return interaction.reply({content: 'Please provide a user to ban.', ephemeral: true});
     if (reason.length > 512) return interaction.reply({content: 'The reason cannot be longer than 512 characters.', ephemeral: true});
     if (duration.length > 32) return interaction.reply({content: 'The duration cannot be longer than 32 characters.', ephemeral: true});
+
+    if (userPunishments) {
+        // check if the user has already active bans from lounge
+        const activeBan = userPunishments.find(punishment => punishment.punishment_type === 'LOUNGES_BAN');
+        if (activeBan) {
+            return interaction.reply({content: 'This user already has an active ban from the temporary voice channels.', ephemeral: true});
+        }
+    }
 
     try {
         // translate 1m, 1h, 1d, etc to milliseconds
