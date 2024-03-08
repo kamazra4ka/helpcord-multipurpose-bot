@@ -51,6 +51,7 @@ import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
 import {writeLog} from "./Handlers/Database/Logs.js";
 import {checkPunishments} from "./Handlers/Database/Punishments.js";
+import {TempVoicesBan} from "./Commands/Moderation/TempVoicesBan.js";
 
 const client = new Client({
     intents: [
@@ -88,7 +89,7 @@ client.on('ready', async () => {
 
     setInterval(async () => {
         const endedPunishments = await checkPunishments();
-        if (endedPunishments.length > 0) {
+        if (endedPunishments) {
             endedPunishments.forEach(punishment => {
                 console.log(punishment)
             });
@@ -189,6 +190,9 @@ client.on('interactionCreate', async interaction => {
             case 'welcome':
                 await welcomeChannelCreate(interaction)
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_WELCOME');
+                break;
+            case 'banlounges':
+                await TempVoicesBan(interaction);
                 break;
             default:
                 break;
