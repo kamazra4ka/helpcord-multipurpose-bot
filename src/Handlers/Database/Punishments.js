@@ -47,6 +47,7 @@ export const getUserPunishments = async (userId, serverId) => {
                 console.error(err);
                 return;
             }
+            console.log(rows)
             return rows;
         });
     });
@@ -69,6 +70,29 @@ export const checkPunishments = async () => {
             }
 
             return rows;
+        });
+    });
+}
+
+export const isLoungeBanned = (userId, serverId) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+                return;
+            }
+
+            connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ? AND punishment_type = ?', [userId, serverId, 'LOUNGES_BAN'], (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(!!rows.length);
+            });
         });
     });
 }

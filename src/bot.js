@@ -50,7 +50,7 @@ import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Han
 import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
 import {writeLog} from "./Handlers/Database/Logs.js";
-import {checkPunishments, getUserPunishments} from "./Handlers/Database/Punishments.js";
+import {checkPunishments, getUserPunishments, isLoungeBanned} from "./Handlers/Database/Punishments.js";
 import {TempVoicesBan} from "./Commands/Moderation/TempVoicesBan.js";
 
 const client = new Client({
@@ -102,22 +102,15 @@ tempChannels.on("childCreate", async (member, channel, parentChannel) => {
 
     if (member.user.bot) return;
 
-    const userPunishments = await getUserPunishments(member.id, member.guild.id);
-
-    if (userPunishments) {
-        const activeBan = userPunishments.find(punishment => punishment.punishment_type === 'LOUNGES_BAN');
-        if (activeBan) {
+    if (await isLoungeBanned(member.id, member.guild.id)) {
+        setTimeout(async () => {
             await channel.delete();
-            return;
-        }
+        }, 2000);
+    } else {
+        await newTempChannelCreation(member, channel, parentChannel)
+        await writeLog(member.id, member.guild.id, 'TEMP_CHANNEL_CREATE');
     }
-
-    await newTempChannelCreation(member, channel, parentChannel)
-    await writeLog(member.id, member.guild.id, 'TEMP_CHANNEL_CREATE');
 });
-
-
-
 
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isModalSubmit()) return;
