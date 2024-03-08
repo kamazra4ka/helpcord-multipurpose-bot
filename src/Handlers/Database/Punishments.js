@@ -93,7 +93,7 @@ export const isLoungeBanned = (userId, serverId) => {
                 return;
             }
 
-            connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ? AND punishment_type = ?', [userId, serverId, 'LOUNGES_BAN'], (err, rows) => {
+            connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ? AND punishment_type = ? AND punishment_active = 1', [userId, serverId, 'LOUNGES_BAN'], (err, rows) => {
                 connection.release();
                 if (err) {
                     console.error(err);
