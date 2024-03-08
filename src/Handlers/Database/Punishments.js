@@ -59,26 +59,30 @@ export const getUserPunishments = (userId, serverId) => {
 }
 
 
-export const checkPunishments = async () => {
-    const timestamp = new Date().getTime();
-
-    pool.getConnection((err, connection) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        connection.query('SELECT * FROM punishments WHERE punishment_end <= ?', [timestamp], async (err, rows) => {
-            connection.release();
+export const checkPunishments = () => {
+    return new Promise((resolve, reject) => {
+        const timestamp = new Date().getTime();
+        pool.getConnection((err, connection) => {
             if (err) {
                 console.error(err);
+                reject(err);
                 return;
             }
 
-            return rows;
+            connection.query('SELECT * FROM punishments WHERE punishment_end <= ? AND punishment_active = 1', [timestamp], (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(rows);
+            });
         });
     });
 }
+
 
 export const isLoungeBanned = (userId, serverId) => {
     return new Promise((resolve, reject) => {
@@ -98,6 +102,29 @@ export const isLoungeBanned = (userId, serverId) => {
                 }
 
                 resolve(!!rows.length);
+            });
+        });
+    });
+}
+
+export const endPunishment = (punishmentId) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+                return;
+            }
+
+            connection.query('UPDATE punishments SET punishment_active = 0 WHERE punishment_internal_id = ?', [punishmentId], (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(rows);
             });
         });
     });
