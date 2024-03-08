@@ -2,6 +2,8 @@ import {
     config
 } from 'dotenv';
 import {
+    ActionRowBuilder,
+    ButtonBuilder, ButtonStyle,
     ChannelType,
     Client,
     EmbedBuilder,
@@ -52,6 +54,8 @@ import {RemoveUser} from "./Handlers/Database/Users.js";
 import {writeLog} from "./Handlers/Database/Logs.js";
 import {checkPunishments, getUserPunishments, isLoungeBanned} from "./Handlers/Database/Punishments.js";
 import {TempVoicesBan} from "./Commands/Moderation/TempVoicesBan.js";
+import {getEmbed} from "./Handlers/Database/Customization.js";
+import {getFooterDetails} from "./Handlers/getFooterDetails.js";
 
 const client = new Client({
     intents: [
@@ -106,6 +110,30 @@ tempChannels.on("childCreate", async (member, channel, parentChannel) => {
         setTimeout(async () => {
             await channel.delete();
         }, 2000);
+
+        try {
+            const dm = await member.createDM();
+
+            const footer = await getFooterDetails(member.guild.id);
+
+            const embed = new EmbedBuilder()
+                .setColor(await getEmbed(channel.guild.id))
+                .setTitle('Helpcord | Lounge')
+                .setDescription(`**${member.user.username}**, you are banned from creating temporary voice channels. If you think this is a mistake, please contact the server staff.`)
+                .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
+                .setTimestamp()
+                .setFooter({
+                    text: `${footer.footerText}`,
+                    iconURL: `${footer.footerIcon}`
+                });
+
+            await dm.send({
+                embeds: [embed]
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
     } else {
         await newTempChannelCreation(member, channel, parentChannel)
         await writeLog(member.id, member.guild.id, 'TEMP_CHANNEL_CREATE');
