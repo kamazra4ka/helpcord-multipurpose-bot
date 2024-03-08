@@ -48,6 +48,7 @@ import {welcomeChannelCreate} from "./Commands/Welcome/welcomeChannelCreate.js";
 import {welcomeChannelModalHandler} from "./Handlers/Welcome/welcomeChannelModalHandler.js";
 import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Handlers/Welcome/showModalEditWelcome.js";
 import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
+import {RemoveUser} from "./Handlers/Database/Users.js";
 
 const client = new Client({
     intents: [
@@ -111,7 +112,6 @@ client.on(Events.InteractionCreate, async interaction => {
         default:
             break;
     }
-
 });
 
 client.on('guildCreate', async guild => {
@@ -124,6 +124,10 @@ client.on('guildDelete', async guild => {
 
 client.on('guildMemberAdd', async member => {
     await UserJoin(member);
+});
+
+client.on('guildMemberRemove', async member => {
+    await RemoveUser(member);
 });
 
 client.on('interactionCreate', async interaction => {
