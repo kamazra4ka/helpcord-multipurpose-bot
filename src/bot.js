@@ -49,6 +49,7 @@ import {welcomeChannelModalHandler} from "./Handlers/Welcome/welcomeChannelModal
 import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Handlers/Welcome/Modals/showModalEditWelcome.js";
 import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
+import {writeLog} from "./Handlers/Database/Logs.js";
 
 const client = new Client({
     intents: [
@@ -87,6 +88,7 @@ client.on('ready', async () => {
 
 tempChannels.on("childCreate", async (member, channel, parentChannel) => {
     await newTempChannelCreation(member, channel, parentChannel)
+    await writeLog(member.id, member.guild.id, 'TEMP_CHANNEL_CREATE');
 });
 
 
@@ -96,18 +98,23 @@ client.on(Events.InteractionCreate, async interaction => {
     switch (interaction.customId) {
         case 'setupTempVoicesModal':
             await tempVoiceModalHandler(interaction, tempChannels, db)
+            await writeLog(interaction.user.id, interaction.guild.id, 'MODAL_TEMPVOICES');
             break;
         case 'setupWelcomeChannelModal':
             await welcomeChannelModalHandler(interaction)
+            await writeLog(interaction.user.id, interaction.guild.id, 'MODAL_WELCOME');
             break;
         case 'editImageModal':
             await editWelcomeChannel(interaction, 'image');
+            await writeLog(interaction.user.id, interaction.guild.id, 'MODAL_EDIT_IMAGE');
             break;
         case 'editMessageModal':
             await editWelcomeChannel(interaction, 'message');
+            await writeLog(interaction.user.id, interaction.guild.id, 'MODAL_EDIT_MESSAGE');
             break;
         case 'deleteWelcomeModal':
             await editWelcomeChannel(interaction, 'delete');
+            await writeLog(interaction.user.id, interaction.guild.id, 'MODAL_DELETE');
             break;
         default:
             break;
@@ -116,18 +123,22 @@ client.on(Events.InteractionCreate, async interaction => {
 
 client.on('guildCreate', async guild => {
     await GuildJoin(guild);
+    await writeLog(client.user.id, guild.id, 'GUILD_JOIN');
 });
 
 client.on('guildDelete', async guild => {
     await GuildLeave(guild);
+    await writeLog(client.user.id, guild.id, 'GUILD_LEAVE');
 })
 
 client.on('guildMemberAdd', async member => {
     await UserJoin(member);
+    await writeLog(member.id, member.guild.id, 'MEMBER_JOIN');
 });
 
 client.on('guildMemberRemove', async member => {
     await RemoveUser(member);
+    await writeLog(member.id, member.guild.id, 'MEMBER_LEAVE');
 });
 
 client.on('interactionCreate', async interaction => {
@@ -136,27 +147,35 @@ client.on('interactionCreate', async interaction => {
         switch (interaction.commandName) {
             case 'help':
                 await Help(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_HELP');
                 break;
             case 'lock':
                 await LockTextChannel(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_LOCK');
                 break;
             case 'unlock':
                 await UnlockTextChannel(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_UNLOCK');
                 break;
             case 'slowmode':
                 await SlowmodeTextChannel(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_SLOWMODE');
                 break;
             case 'loungesetup':
                 await SetupTempVoices(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_LOUNGESETUP');
                 break;
             case 'setcolor':
                 await SetColor(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_SETCOLOR');
                 break;
             case 'branding':
                 await Branding(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_BRANDING');
                 break;
             case 'welcome':
                 await welcomeChannelCreate(interaction)
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_WELCOME');
                 break;
             default:
                 break;
@@ -181,12 +200,15 @@ client.on('interactionCreate', async interaction => {
                 switch (command) {
                     case 'image':
                         await ModalEditImage(interaction);
+                        await writeLog(interaction.user.id, interaction.guild.id, 'WELCOME_EDIT_IMAGE');
                         break;
                     case 'message':
                         await ModalEditMessage(interaction);
+                        await writeLog(interaction.user.id, interaction.guild.id, 'WELCOME_EDIT_MESSAGE');
                         break;
                     case 'delete':
                         await ModalDeleteWelcomeChannel(interaction);
+                        await writeLog(interaction.user.id, interaction.guild.id, 'WELCOME_DELETE');
                         break;
                 }
                 return;
@@ -195,21 +217,26 @@ client.on('interactionCreate', async interaction => {
             switch (customId) {
                 case 'help_moderation':
                     await HelpButtons(interaction, 'moderation');
+                    await writeLog(interaction.user.id, interaction.guild.id, 'BUTTON_HELP_MODERATION');
                     break;
                 case 'help_entertainment':
                     await HelpButtons(interaction, 'entertainment');
+                    await writeLog(interaction.user.id, interaction.guild.id, 'BUTTON_HELP_ENTERTAINMENT');
                     break;
                 case 'help_economy':
                     await HelpButtons(interaction, 'economy');
+                    await writeLog(interaction.user.id, interaction.guild.id, 'BUTTON_HELP_ECONOMY');
                     break;
                 case 'help_server':
                     await HelpButtons(interaction, 'server');
+                    await writeLog(interaction.user.id, interaction.guild.id, 'BUTTON_HELP_SERVER');
                     break;
             }
         }
 
     } catch (error) {
         interaction.channel.send(`An error occurred, please try again.\n\n.${error}`);
+        await writeLog(interaction.user.id, interaction.guild.id, 'ERROR');
         console.log(error)
     }
 });
