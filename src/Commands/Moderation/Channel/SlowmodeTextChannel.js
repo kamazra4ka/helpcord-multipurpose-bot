@@ -1,7 +1,7 @@
 import { ChannelType, PermissionFlagsBits, EmbedBuilder } from 'discord.js';
-import {getEmbed} from "../../Handlers/Database/Customization.js";
-import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
-import {checkPermissions} from "../../Handlers/Permissions.js";
+import {getEmbed} from "../../../Handlers/Database/Customization.js";
+import {getFooterDetails} from "../../../Handlers/getFooterDetails.js";
+import {checkPermissions} from "../../../Handlers/Permissions.js";
 let embed;
 
 export const SlowmodeTextChannel = async (interaction) => {

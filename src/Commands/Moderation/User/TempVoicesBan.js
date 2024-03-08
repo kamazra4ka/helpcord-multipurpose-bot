@@ -1,10 +1,10 @@
 import ms from "ms";
-import {getFooterDetails} from "../../Handlers/getFooterDetails.js";
-import {checkPermissions} from "../../Handlers/Permissions.js";
+import {getFooterDetails} from "../../../Handlers/getFooterDetails.js";
+import {checkPermissions} from "../../../Handlers/Permissions.js";
 import {EmbedBuilder} from "discord.js";
-import {getEmbed} from "../../Handlers/Database/Customization.js";
-import {getUserPunishments, writePunishment} from "../../Handlers/Database/Punishments.js";
-import {writeLog} from "../../Handlers/Database/Logs.js";
+import {getEmbed} from "../../../Handlers/Database/Customization.js";
+import {getUserPunishments, writePunishment} from "../../../Handlers/Database/Punishments.js";
+import {writeLog} from "../../../Handlers/Database/Logs.js";
 
 export const TempVoicesBan = async interaction => {
 

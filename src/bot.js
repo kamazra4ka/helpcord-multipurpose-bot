@@ -12,7 +12,7 @@ import {
 } from 'discord.js';
 import {
     LockTextChannel
-} from "./Commands/Moderation/LockTextChannel.js";
+} from "./Commands/Moderation/Channel/LockTextChannel.js";
 import {
     Help
 } from "./Commands/Help.js";
@@ -21,10 +21,10 @@ import {
 } from "./Handlers/HelpButtons.js";
 import {
     UnlockTextChannel
-} from "./Commands/Moderation/UnlockTextChannel.js";
+} from "./Commands/Moderation/Channel/UnlockTextChannel.js";
 import {
     SlowmodeTextChannel
-} from "./Commands/Moderation/SlowmodeTextChannel.js";
+} from "./Commands/Moderation/Channel/SlowmodeTextChannel.js";
 import TempChannels from "@gamers-geek/discord-temp-channels";
 import {
     QuickDB
@@ -53,7 +53,7 @@ import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
 import {RemoveUser} from "./Handlers/Database/Users.js";
 import {writeLog} from "./Handlers/Database/Logs.js";
 import {checkPunishments, endPunishment, getUserPunishments, isLoungeBanned} from "./Handlers/Database/Punishments.js";
-import {TempVoicesBan} from "./Commands/Moderation/TempVoicesBan.js";
+import {TempVoicesBan} from "./Commands/Moderation/User/TempVoicesBan.js";
 import {getEmbed} from "./Handlers/Database/Customization.js";
 import {getFooterDetails} from "./Handlers/getFooterDetails.js";
 
