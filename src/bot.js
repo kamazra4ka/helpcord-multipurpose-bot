@@ -115,11 +115,20 @@ tempChannels.on("childCreate", async (member, channel, parentChannel) => {
             const dm = await member.createDM();
 
             const footer = await getFooterDetails(member.guild.id);
+            const userPunishments = await getUserPunishments(member.id, member.guild.id);
+
+            const activeBan = userPunishments.find(punishment => punishment.punishment_type === 'LOUNGES_BAN');
+            const moderator = await client.users.fetch(activeBan.punishment_moderator_id);
+            const moderatorMention = `<@${moderator.id}>`;
+            const reason = activeBan.punishment_reason;
+
+            const endDate = activeBan.punishment_end;
+            const discordDate = `<t:${endDate}:F>`
 
             const embed = new EmbedBuilder()
                 .setColor(await getEmbed(channel.guild.id))
                 .setTitle('Helpcord | Lounge')
-                .setDescription(`**${member.user.username}**, you are banned from creating temporary voice channels. If you think this is a mistake, please contact the server staff.`)
+                .setDescription(`**${member.user.username}**, you are currently banned from creating temporary voice channels. If you think this is a mistake, please contact the server staff.\n\n**Moderator:** ${moderatorMention}\n**Reason:** ${reason}\n**End date:** ${discordDate}\n\nIf you want to appeal the ban, please contact the server staff.`)
                 .setImage('https://media.discordapp.net/attachments/1212377559669669930/1213106150569152512/lounges.png?ex=65f44424&is=65e1cf24&hm=11e6f2b230a5c1ffdf4f389461fd4959a181a1e613caec8fce40a2804975cf8d&=&format=webp&quality=lossless&width=1440&height=391')
                 .setTimestamp()
                 .setFooter({

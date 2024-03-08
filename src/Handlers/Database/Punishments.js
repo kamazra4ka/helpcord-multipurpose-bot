@@ -34,24 +34,30 @@ export const writePunishment = async (userId, moderatorId, serverId, punishmentT
 
 }
 
-export const getUserPunishments = async (userId, serverId) => {
-    pool.getConnection((err, connection) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ?', [userId, serverId], async (err, rows) => {
-            connection.release();
+export const getUserPunishments = (userId, serverId) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
             if (err) {
                 console.error(err);
+                reject(err);
                 return;
             }
-            console.log(rows)
-            return rows;
+
+            connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ?', [userId, serverId], (err, rows) => {
+                connection.release();
+                if (err) {
+                    console.error(err);
+                    reject(err);
+                    return;
+                }
+
+                console.log(rows);
+                resolve(rows);
+            });
         });
     });
 }
+
 
 export const checkPunishments = async () => {
     const timestamp = new Date().getTime();
