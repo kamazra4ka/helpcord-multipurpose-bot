@@ -99,9 +99,7 @@ client.on('ready', async () => {
                 await endPunishment(punishment.punishment_internal_id)
             }
         }
-        console.log('Checking for ended punishments')
-        // 60000
-    }, 5000);
+    }, 30000);
 });
 
 tempChannels.on("childCreate", async (member, channel, parentChannel) => {
