@@ -10,52 +10,18 @@ import {
     Events,
     GatewayIntentBits
 } from 'discord.js';
-import {
-    LockTextChannel
-} from "./Commands/Moderation/Channel/LockTextChannel.js";
-import {
-    Help
-} from "./Commands/Help.js";
-import {
-    HelpButtons
-} from "./Handlers/HelpButtons.js";
-import {
-    UnlockTextChannel
-} from "./Commands/Moderation/Channel/UnlockTextChannel.js";
-import {
-    SlowmodeTextChannel
-} from "./Commands/Moderation/Channel/SlowmodeTextChannel.js";
+
+import { LockTextChannel, UnlockTextChannel, SlowmodeTextChannel, SetupTempVoices,
+    Help, SetColor, Branding, welcomeChannelCreate, TempVoicesBan } from './Barrels/BarrelCommands.js';
+import { HelpButtons, newTempChannelCreation, tempVoiceModalHandler, GuildLeave,
+    GuildJoin, UserJoin, welcomeChannelModalHandler, ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage,
+    editWelcomeChannel, RemoveUser, writeLog, checkPunishments, endPunishment, getUserPunishments, isLoungeBanned,
+    getEmbed, getFooterDetails } from './Barrels/BarrelHandlers.js';
+
 import TempChannels from "@gamers-geek/discord-temp-channels";
 import {
     QuickDB
 } from "quick.db";
-import {
-    showModalTempVoices
-} from "./Handlers/TempVoices/Modals/showModalTempVoices.js";
-import {
-    SetupTempVoices
-} from "./Commands/TempVoices/SetupTempVoices.js";
-import {
-    newTempChannelCreation
-} from "./Handlers/TempVoices/newTempChannelCreation.js";
-import {
-    tempVoiceModalHandler
-} from "./Handlers/TempVoices/tempVoiceModalHandler.js";
-import {GuildLeave} from "./Handlers/Events/Guild/GuildLeave.js";
-import {GuildJoin} from "./Handlers/Events/Guild/GuildJoin.js";
-import {UserJoin} from "./Handlers/Events/User/UserJoin.js";
-import {SetColor} from "./Commands/Customization/setColor.js";
-import {Branding} from "./Commands/Customization/Branding.js";
-import {welcomeChannelCreate} from "./Commands/Welcome/welcomeChannelCreate.js";
-import {welcomeChannelModalHandler} from "./Handlers/Welcome/welcomeChannelModalHandler.js";
-import {ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage} from "./Handlers/Welcome/Modals/showModalEditWelcome.js";
-import {editWelcomeChannel} from "./Handlers/Welcome/editWelcomeChannel.js";
-import {RemoveUser} from "./Handlers/Database/Users.js";
-import {writeLog} from "./Handlers/Database/Logs.js";
-import {checkPunishments, endPunishment, getUserPunishments, isLoungeBanned} from "./Handlers/Database/Punishments.js";
-import {TempVoicesBan} from "./Commands/Moderation/User/TempVoicesBan.js";
-import {getEmbed} from "./Handlers/Database/Customization.js";
-import {getFooterDetails} from "./Handlers/getFooterDetails.js";
 
 const client = new Client({
     intents: [

@@ -3,9 +3,8 @@ import {
     TextInputStyle,
     ModalBuilder, TextInputBuilder, EmbedBuilder
 } from 'discord.js';
-import {getFooterDetails} from "../../getFooterDetails.js";
-import {checkPermissions} from "../../Permissions.js";
-import {getEmbed} from "../../Database/Customization.js";
+
+import { getFooterDetails, checkPermissions, getEmbed } from '../../../Barrels/BarrelHandlers.js';
 
 export const showModalTempVoices = async (interaction) => {
 
