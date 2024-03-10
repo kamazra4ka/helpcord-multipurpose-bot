@@ -118,6 +118,30 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'ban',
+        description: 'Ban a user from this server.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to ban',
+                type: 6,
+                required: true
+            },
+            {
+                name: 'reason',
+                description: 'The reason for the ban',
+                type: 3,
+                required: true
+            },
+            {
+                name: 'duration',
+                description: 'The duration of the ban (1m = 1 minute, 1h = 1 hour, 1d = 1 day, etc)',
+                type: 3,
+                required: true
+            }
+        ]
     }
 ];
 
