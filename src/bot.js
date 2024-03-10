@@ -12,7 +12,7 @@ import {
 } from 'discord.js';
 
 import { LockTextChannel, UnlockTextChannel, SlowmodeTextChannel, SetupTempVoices,
-    Help, SetColor, Branding, welcomeChannelCreate, UserTempVoicesBan, UserBan } from './Barrels/BarrelCommands.js';
+    Help, SetColor, Branding, welcomeChannelCreate, UserTempVoicesBan, UserBan, UserMute } from './Barrels/BarrelCommands.js';
 import { HelpButtons, newTempChannelCreation, tempVoiceModalHandler, GuildLeave,
     GuildJoin, UserJoin, welcomeChannelModalHandler, ModalDeleteWelcomeChannel, ModalEditImage, ModalEditMessage,
     editWelcomeChannel, RemoveUser, writeLog, checkPunishments, endPunishment, getUserPunishments, isLoungeBanned,
@@ -225,6 +225,10 @@ client.on('interactionCreate', async interaction => {
             case 'ban':
                 await UserBan(interaction);
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_BAN');
+                break;
+            case 'mute':
+                await UserMute(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_MUTE');
                 break;
             default:
                 break;
