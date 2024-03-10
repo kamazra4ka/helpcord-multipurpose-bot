@@ -63,14 +63,19 @@ client.on('ready', async () => {
             for (const punishment of endedPunishments) {
                 console.log(punishment)
 
+                let guild;
+
                 switch (punishment.punishment_type) {
                     case 'SERVER_BAN':
-                        const guild = client.guilds.cache.get(punishment.punishment_server_id);
+                        guild = client.guilds.cache.get(punishment.punishment_server_id);
                         await guild.members.unban(punishment.punishment_user_id, `Ban has ended`);
                         await writeLog(punishment.punishment_user_id, punishment.punishment_server_id,'PUNISHMENT_BAN_END');
                         break;
                     case 'LOUNGES_BAN':
                         await writeLog(punishment.punishment_user_id, punishment.punishment_server_id,'PUNISHMENT_LOUNGES_BAN_END');
+                        break;
+                    case 'SERVER_MUTE':
+                        await writeLog(punishment.punishment_user_id, punishment.punishment_server_id,'PUNISHMENT_MUTE_END');
                         break;
                 }
 

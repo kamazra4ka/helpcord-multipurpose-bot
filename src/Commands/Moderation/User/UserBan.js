@@ -48,8 +48,8 @@ export const UserBan = async (interaction) => {
     if (!duration) return interaction.reply({content: 'The duration is not valid.', ephemeral: true});
 
     await writePunishment(user.id, interaction.user.id, interaction.guildId, 'SERVER_BAN', reason, duration);
-    await writeLog(interaction.user.id, interaction.guildId, 'GIVE_PUNISHMENT_LOUNGESBAN');
-    await writeLog(user.id, interaction.guildId, 'RECEIVE_PUNISHMENT_LOUNGESBAN');
+    await writeLog(interaction.user.id, interaction.guildId, 'GIVE_PUNISHMENT_BAN');
+    await writeLog(user.id, interaction.guildId, 'RECEIVE_PUNISHMENT_BAN');
 
     const formattedDuration = ms(duration, {long: true});
 
