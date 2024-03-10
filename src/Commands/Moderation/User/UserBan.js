@@ -36,6 +36,7 @@ export const UserBan = async (interaction) => {
     if (!user) return interaction.reply({content: 'Please provide a user to ban.', ephemeral: true});
     if (reason.length > 512) return interaction.reply({content: 'The reason cannot be longer than 512 characters.', ephemeral: true});
     if (duration.length > 32) return interaction.reply({content: 'The duration cannot be longer than 32 characters.', ephemeral: true});
+    if (user.id === interaction.user.id) return interaction.reply({content: 'You cannot ban yourself.', ephemeral: true});
 
     try {
         // translate 1m, 1h, 1d, etc to milliseconds
@@ -63,7 +64,8 @@ export const UserBan = async (interaction) => {
             iconURL: `${footer.footerIcon}`
         });
 
-    await user.ban({reason: reason})
+    const member = interaction.guild.members.cache.get(user.id);
+    await member.ban({reason: reason})
 
     await interaction.reply({
         content: '',

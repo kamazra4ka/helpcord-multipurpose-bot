@@ -6,6 +6,7 @@ import { Help } from "../Commands/Help.js";
 import { SetColor } from "../Commands/Customization/setColor.js";
 import { Branding } from "../Commands/Customization/Branding.js";
 import { welcomeChannelCreate } from "../Commands/Welcome/welcomeChannelCreate.js";
-import { TempVoicesBan } from "../Commands/Moderation/User/TempVoicesBan.js";
+import { UserTempVoicesBan } from "../Commands/Moderation/User/UserTempVoicesBan.js";
+import { UserBan } from "../Commands/Moderation/User/UserBan.js";
 
-export { LockTextChannel, UnlockTextChannel, SlowmodeTextChannel, SetupTempVoices, Help, SetColor, Branding, welcomeChannelCreate, TempVoicesBan };
+export { LockTextChannel, UnlockTextChannel, SlowmodeTextChannel, SetupTempVoices, Help, SetColor, Branding, welcomeChannelCreate, UserTempVoicesBan, UserBan };
