@@ -2,7 +2,7 @@ import ms from "ms";
 import {EmbedBuilder} from "discord.js";
 import { getFooterDetails, checkPermissions, getEmbed, getUserPunishments, writePunishment, writeLog } from '../../../Barrels/BarrelHandlers.js';
 
-export const TempVoicesBan = async interaction => {
+export const UserTempVoicesBan = async interaction => {
 
     const footer = await getFooterDetails(interaction);
     const userPunishments = await getUserPunishments(interaction.user.id, interaction.guildId);
