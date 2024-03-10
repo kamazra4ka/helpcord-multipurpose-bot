@@ -142,6 +142,30 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'mute',
+        description: 'Mute a user on this server.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to mute',
+                type: 6,
+                required: true
+            },
+            {
+                name: 'reason',
+                description: 'The reason for the mute',
+                type: 3,
+                required: true
+            },
+            {
+                name: 'duration',
+                description: 'The duration of the mute (1m = 1 minute, 1h = 1 hour, 1d = 1 day, etc)',
+                type: 3,
+                required: true
+            }
+        ]
     }
 ];
 
