@@ -22,6 +22,7 @@ import TempChannels from "@gamers-geek/discord-temp-channels";
 import {
     QuickDB
 } from "quick.db";
+import {UserKick} from "./Commands/Moderation/User/UserKick.js";
 
 const client = new Client({
     intents: [
@@ -229,6 +230,10 @@ client.on('interactionCreate', async interaction => {
             case 'mute':
                 await UserMute(interaction);
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_MUTE');
+                break;
+            case 'kick':
+                await UserKick(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_KICK');
                 break;
             default:
                 break;
