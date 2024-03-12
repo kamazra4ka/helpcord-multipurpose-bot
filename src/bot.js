@@ -23,6 +23,7 @@ import {
     QuickDB
 } from "quick.db";
 import {UserKick} from "./Commands/Moderation/User/UserKick.js";
+import {UserUnmute} from "./Commands/Moderation/User/UserMute.js";
 
 const client = new Client({
     intents: [
@@ -230,6 +231,10 @@ client.on('interactionCreate', async interaction => {
             case 'mute':
                 await UserMute(interaction);
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_MUTE');
+                break;
+            case 'unmute':
+                await UserUnmute(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_UNMUTE');
                 break;
             case 'kick':
                 await UserKick(interaction);
