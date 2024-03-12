@@ -168,6 +168,18 @@ const commands = [
         ]
     },
     {
+        name: 'unmute',
+        description: 'Unmute a user on this server.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to unmute',
+                type: 6,
+                required: true
+            }
+        ]
+    },
+    {
         name: 'kick',
         description: 'Kick a user from this server.',
         options: [
