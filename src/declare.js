@@ -196,6 +196,18 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'punishments',
+        description: 'Get a list of all punishments for the user.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to get punishments for',
+                type: 6,
+                required: true
+            }
+        ]
     }
 ];
 
