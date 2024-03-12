@@ -103,8 +103,6 @@ export const UserUnmute = async (interaction) => {
     await writeLog(interaction.user.id, interaction.guildId, 'GIVE_PUNISHMENT_UNMUTE');
     await writeLog(user.id, interaction.guildId, 'RECEIVE_PUNISHMENT_UNMUTE');
 
-    const formattedDuration = ms(duration, {long: true});
-
     const responseEmbed = new EmbedBuilder()
         .setColor(await getEmbed(interaction.guildId))
         .setTitle('Helpcord | Punishments')
@@ -116,8 +114,11 @@ export const UserUnmute = async (interaction) => {
             iconURL: `${footer.footerIcon}`
         });
 
+    const duration = 5000;
+    const reason = 'Unmute';
+
     const member = interaction.guild.members.cache.get(user.id);
-    await member.timeout(0);
+    await member.timeout(duration, reason);
 
     await interaction.reply({
         content: '',
