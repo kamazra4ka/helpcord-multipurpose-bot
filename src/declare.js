@@ -166,6 +166,24 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'kick',
+        description: 'Kick a user from this server.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to kick',
+                type: 6,
+                required: true
+            },
+            {
+                name: 'reason',
+                description: 'The reason for the kick',
+                type: 3,
+                required: true
+            }
+        ]
     }
 ];
 
