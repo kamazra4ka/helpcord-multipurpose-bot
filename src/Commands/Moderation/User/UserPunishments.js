@@ -96,7 +96,7 @@ export const UserPunishments = async (interaction) => {
         lastPunishments.length = 3;
     }
 
-    const lastPunishmentsString = lastPunishments.map(punishment => `**Type:** ${punishment.type}\n**Reason:** ${punishment.reason}\n**Start:** ${punishment.start}\n**End:** :${punishment.end}\n**Active:** ${punishment.active ? 'Yes' : 'No'}`).join('\n\n');
+    const lastPunishmentsString = lastPunishments.map(punishment => `**Type:** ${punishment.type}\n**Reason:** ${punishment.reason}\n**Start:** ${punishment.start}\n**End:** ${punishment.end}\n**Active:** ${punishment.active ? 'Yes' : 'No'}`).join('\n\n');
 
     // debug values for now
     const botLevel = 4;
