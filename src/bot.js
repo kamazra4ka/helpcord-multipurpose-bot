@@ -24,6 +24,7 @@ import {
 } from "quick.db";
 import {UserKick} from "./Commands/Moderation/User/UserKick.js";
 import {UserUnmute} from "./Commands/Moderation/User/UserMute.js";
+import {UserPunishments} from "./Commands/Moderation/User/UserPunishments.js";
 
 const client = new Client({
     intents: [
@@ -239,6 +240,10 @@ client.on('interactionCreate', async interaction => {
             case 'kick':
                 await UserKick(interaction);
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_KICK');
+                break;
+            case 'punishments':
+                await UserPunishments(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_PUNISHMENTS');
                 break;
             default:
                 break;
