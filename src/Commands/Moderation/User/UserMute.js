@@ -73,6 +73,10 @@ export const UserMute = async (interaction) => {
         embeds: [responseEmbed]
     });
 
+    const now = new Date().getTime();
+    duration = now + duration;
+    await notifyUserModAction(interaction.guild, user, interaction.user.id, {punishment_type: 'SERVER_MUTE', punishment_reason: reason, punishment_end: duration, punishment_start: now}, false);
+
 }
 
 export const UserUnmute = async (interaction) => {
