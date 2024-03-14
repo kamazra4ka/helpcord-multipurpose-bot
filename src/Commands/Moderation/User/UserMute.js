@@ -5,6 +5,7 @@ import {EmbedBuilder} from "discord.js";
 import {getEmbed} from "../../../Handlers/Database/Customization.js";
 import ms from "ms";
 import {writeLog} from "../../../Handlers/Database/Logs.js";
+import {notifyUserModAction} from "../../../Handlers/Moderation/notifyUserModAction.js";
 
 export const UserMute = async (interaction) => {
 
@@ -124,4 +125,7 @@ export const UserUnmute = async (interaction) => {
         content: '',
         embeds: [responseEmbed]
     });
+
+    await notifyUserModAction(interaction.guild, user, interaction.user.id, {punishment_type: 'SERVER_UNMUTE', punishment_reason: reason, punishment_end: 'Now', punishment_start: 'Now'}, true);
+
 }

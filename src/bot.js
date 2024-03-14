@@ -25,6 +25,7 @@ import {
 import {UserKick} from "./Commands/Moderation/User/UserKick.js";
 import {UserUnmute} from "./Commands/Moderation/User/UserMute.js";
 import {UserPunishments} from "./Commands/Moderation/User/UserPunishments.js";
+import {notifyUserModAction} from "./Handlers/Moderation/notifyUserModAction.js";
 
 const client = new Client({
     intents: [
@@ -66,7 +67,7 @@ client.on('ready', async () => {
             for (const punishment of endedPunishments) {
                 console.log(punishment)
 
-                let guild;
+                let guild, user;
 
                 switch (punishment.punishment_type) {
                     case 'SERVER_BAN':
@@ -82,6 +83,8 @@ client.on('ready', async () => {
                         await writeLog(punishment.punishment_user_id, punishment.punishment_server_id,'PUNISHMENT_LOUNGES_BAN_END');
                         break;
                     case 'SERVER_MUTE':
+                        guild = client.guilds.cache.get(punishment.punishment_server_id);
+                        user = await guild.members.fetch(punishment.punishment_user_id);
                         await writeLog(punishment.punishment_user_id, punishment.punishment_server_id,'PUNISHMENT_MUTE_END');
                         break;
                 }
