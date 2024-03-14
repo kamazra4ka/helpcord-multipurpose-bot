@@ -5,6 +5,7 @@ import {EmbedBuilder} from "discord.js";
 import {getEmbed} from "../../../Handlers/Database/Customization.js";
 import ms from "ms";
 import {writeLog} from "../../../Handlers/Database/Logs.js";
+import {notifyUserModAction} from "../../../Handlers/Moderation/notifyUserModAction.js";
 
 export const UserBan = async (interaction) => {
 
@@ -65,11 +66,25 @@ export const UserBan = async (interaction) => {
         });
 
     const member = interaction.guild.members.cache.get(user.id);
-    await member.ban({reason: reason})
+    try {
+        await member.ban({reason: reason})
+    } catch (e) {
+        console.error(e);
+        return interaction.reply({content: 'An error occurred while trying to ban the user.', ephemeral: true});
+    }
 
     await interaction.reply({
         content: '',
         embeds: [responseEmbed]
     });
+
+    try {
+        const now = new Date().getTime();
+        duration = now + duration;
+        await notifyUserModAction(interaction.guild, user, interaction.user.id, {punishment_type: 'SERVER_BAN', punishment_reason: reason, punishment_end: duration, punishment_start: now}, false);
+    } catch (e) {
+        console.error(e);
+    }
+
 
 }
