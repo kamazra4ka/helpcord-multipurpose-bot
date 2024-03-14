@@ -43,7 +43,7 @@ export const getUserPunishments = (userId, serverId) => {
                 return;
             }
 
-            connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ?', [userId, serverId], (err, rows) => {
+            connection.query('SELECT * FROM punishments WHERE punishment_user_id = ? AND punishment_server_id = ? ORDER BY punishments.punishment_end DESC', [userId, serverId], (err, rows) => {
                 connection.release();
                 if (err) {
                     console.error(err);
