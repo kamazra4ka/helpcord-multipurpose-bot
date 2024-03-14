@@ -66,6 +66,15 @@ export const UserBan = async (interaction) => {
         });
 
     const member = interaction.guild.members.cache.get(user.id);
+
+    try {
+        const now = new Date().getTime();
+        duration = now + duration;
+        await notifyUserModAction(interaction.guild, member, interaction.user.id, {punishment_type: 'SERVER_BAN', punishment_reason: reason, punishment_end: duration, punishment_start: now}, false);
+    } catch (e) {
+        console.error(e);
+    }
+
     try {
         await member.ban({reason: reason})
     } catch (e) {
@@ -77,14 +86,5 @@ export const UserBan = async (interaction) => {
         content: '',
         embeds: [responseEmbed]
     });
-
-    try {
-        const now = new Date().getTime();
-        duration = now + duration;
-        await notifyUserModAction(interaction.guild, user, interaction.user.id, {punishment_type: 'SERVER_BAN', punishment_reason: reason, punishment_end: duration, punishment_start: now}, false);
-    } catch (e) {
-        console.error(e);
-    }
-
 
 }
