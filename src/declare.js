@@ -208,6 +208,18 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: "roast",
+        description: "Roast a user's profile.",
+        options: [
+            {
+                name: 'user',
+                description: 'The user to roast',
+                type: 6,
+                required: true
+            }
+        ]
     }
 ];
 
