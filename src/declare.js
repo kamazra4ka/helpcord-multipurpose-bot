@@ -220,6 +220,10 @@ const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'meme',
+        description: 'Get a random meme using your server\'s context.',
     }
 ];
 
