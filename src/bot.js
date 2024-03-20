@@ -26,6 +26,7 @@ import {UserKick} from "./Commands/Moderation/User/UserKick.js";
 import {UserUnmute} from "./Commands/Moderation/User/UserMute.js";
 import {UserPunishments} from "./Commands/Moderation/User/UserPunishments.js";
 import {notifyUserModAction} from "./Handlers/Moderation/notifyUserModAction.js";
+import {Roast} from "./Commands/Enternainment/Roast.js";
 
 const client = new Client({
     intents: [
@@ -251,6 +252,10 @@ client.on('interactionCreate', async interaction => {
             case 'punishments':
                 await UserPunishments(interaction);
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_PUNISHMENTS');
+                break;
+            case 'roast':
+                await Roast(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_ROAST');
                 break;
             default:
                 break;
