@@ -1,6 +1,7 @@
 import ms from "ms";
 import {EmbedBuilder} from "discord.js";
 import { getFooterDetails, checkPermissions, getEmbed, getUserPunishments, writePunishment, writeLog } from '../../../Barrels/BarrelHandlers.js';
+import {notifyUserModAction} from "../../../Handlers/Moderation/notifyUserModAction.js";
 
 export const UserTempVoicesBan = async interaction => {
 
@@ -72,5 +73,9 @@ export const UserTempVoicesBan = async interaction => {
         content: '',
         embeds: [responseEmbed]
     });
+
+    const now = new Date().getTime();
+    duration = now + duration;
+    await notifyUserModAction(interaction.guild, user, interaction.user.id, {punishment_type: 'LOUNGES_BAN', punishment_reason: reason, punishment_end: duration, punishment_start: now}, false);
 
 };
