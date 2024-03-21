@@ -9,7 +9,10 @@ export const Meme = async (interaction) => {
 
     let memeTemplates = [
         'https://api.memegen.link/images/pigeon/',
-        'https://api.memegen.link/images/astronaut/'
+        'https://api.memegen.link/images/astronaut/',
+        'https://api.memegen.link/images/captain-america/',
+        'https://api.memegen.link/images/ch/',
+        'https://api.memegen.link/images/dbg/'
     ]
 
     let memeElements = [
@@ -49,11 +52,16 @@ export const Meme = async (interaction) => {
         const embed = new EmbedBuilder()
             .setColor(await getEmbed(interaction.guildId))
             .setImage(memeImage)
+            .setTitle(`Requested by ${interaction.user.username}`)
             .setTimestamp()
             .setFooter({
                 text: `${footer.footerText}`,
                 iconURL: `${footer.footerIcon}`
             });
+
+        if (!memeImage) {
+            embed.setDescription('Sorry, I was unable to generate a meme. Please try again later.');
+        }
 
         await interaction.channel.send({embeds: [embed]})
     }, 2000);
