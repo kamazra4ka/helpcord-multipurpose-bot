@@ -37,8 +37,13 @@ export const Meme = async (interaction) => {
 
     const memeElement = memeElements[Math.floor(Math.random() * memeElements.length)];
     const memeText = await getMessages(interaction.guildId);
-    const memeImage = await memeGenerator(memeText, memeTemplate, avatarUrl, nickname, memeElement, memeIndex, interaction.channel);
+    let memeImage = await memeGenerator(memeText, memeTemplate, avatarUrl, nickname, memeElement, memeIndex, interaction.channel);
 
+    if (memeImage) {
+        while (memeImage.includes('Sorry') || memeImage.includes('OpenAI')) {
+            memeImage = await memeGenerator(memeText, memeTemplate, avatarUrl, nickname, memeElement, memeIndex, interaction.channel);
+        }
+    }
     interaction.reply({
         content: 'Your meme is being generated. Please wait.',
         ephemeral: true
