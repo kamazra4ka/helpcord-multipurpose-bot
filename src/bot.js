@@ -27,6 +27,8 @@ import {UserUnmute} from "./Commands/Moderation/User/UserMute.js";
 import {UserPunishments} from "./Commands/Moderation/User/UserPunishments.js";
 import {notifyUserModAction} from "./Handlers/Moderation/notifyUserModAction.js";
 import {Roast} from "./Commands/Enternainment/Roast.js";
+import {writeMessage} from "./Handlers/Database/Messages.js";
+import {Meme} from "./Commands/Enternainment/Meme.js";
 
 const client = new Client({
     intents: [
@@ -257,6 +259,10 @@ client.on('interactionCreate', async interaction => {
                 await Roast(interaction);
                 await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_ROAST');
                 break;
+            case 'meme':
+                await Meme(interaction);
+                await writeLog(interaction.user.id, interaction.guild.id, 'COMMAND_ROAST');
+                break;
             default:
                 break;
         }
@@ -323,6 +329,7 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
+    await writeMessage(message.content, message.guild.id);
 });
 
 client.login(botToken);
