@@ -20,8 +20,10 @@ export const writeMessage = async (context, serverId) => {
     }
 
     console.log(cycle)
+    console.log(cycle)
+    console.log(cycle)
 
-    if (cycle === 10) {
+    if (cycle === 50) {
         cycle = 1;
         await deleteMessage(2, serverId);
     }
