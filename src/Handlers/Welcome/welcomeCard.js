@@ -34,7 +34,7 @@ export const welcomeCard = async (member, welcomeInfo, serverColor, welcomeMessa
     const canvas = Canvas.createCanvas(700, 250);
     const context = canvas.getContext('2d');
 
-    const background = await Canvas.loadImage('https://media.discordapp.net/attachments/1212377559669669930/1215217644148367400/bg.png?ex=65fbf2a0&is=65e97da0&hm=e77a2417ee473b30108e2b31802a90554ed926ce1cb3ee970be2e90af9d2526f&=&format=webp&quality=lossless&width=1921&height=521');
+    const background = await Canvas.loadImage('https://media.discordapp.net/attachments/1212377559669669930/1220446714402574426/bg.png?ex=660ef893&is=65fc8393&hm=f58588f743fa713d5ea2dec3606c480df2c7e74e80cf8d355a96d06c8959386f&=&format=webp&quality=lossless&width=687&height=186');
     context.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     // Draw stroke around the canvas
