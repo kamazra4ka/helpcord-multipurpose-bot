@@ -12,7 +12,9 @@ export const Meme = async (interaction) => {
         'https://api.memegen.link/images/astronaut/',
         'https://api.memegen.link/images/captain-america/',
         'https://api.memegen.link/images/ch/',
-        'https://api.memegen.link/images/dbg/'
+        'https://api.memegen.link/images/dbg/',
+        'https://api.memegen.link/images/dodgson/',
+        'https://api.memegen.link/images/drowning/'
     ]
 
     let memeElements = [
@@ -26,6 +28,7 @@ export const Meme = async (interaction) => {
     const nickname = interaction.user.username;
 
     const memeTemplate = memeTemplates[Math.floor(Math.random() * memeTemplates.length)];
+   // const memeTemplate = memeTemplates[6];
     const memeIndex = memeTemplates.indexOf(memeTemplate);
 
     console.log(memeIndex)
@@ -44,6 +47,11 @@ export const Meme = async (interaction) => {
             memeImage = await memeGenerator(memeText, memeTemplate, avatarUrl, nickname, memeElement, memeIndex, interaction.channel);
         }
     }
+
+    if (!memeImage) {
+        memeImage = await memeGenerator(memeText, memeTemplate, avatarUrl, nickname, memeElement, memeIndex, interaction.channel);
+    }
+
     interaction.reply({
         content: 'Your meme is being generated. Please wait.',
         ephemeral: true
@@ -63,10 +71,6 @@ export const Meme = async (interaction) => {
                 text: `${footer.footerText}`,
                 iconURL: `${footer.footerIcon}`
             });
-
-        if (!memeImage) {
-            embed.setDescription('Sorry, I was unable to generate a meme. Please try again later.');
-        }
 
         await interaction.channel.send({embeds: [embed]})
     }, 2000);
