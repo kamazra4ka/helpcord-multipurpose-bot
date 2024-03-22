@@ -34,6 +34,8 @@ export const Branding = async (interaction) => {
         await turnBranding(interaction.guildId, false);
     }
 
+    footer = await getFooterDetails(interaction);
+
     const startEmbed = new EmbedBuilder()
         .setColor(await getEmbed(interaction.guildId))
         .setTitle('Helpcord | Branding')
