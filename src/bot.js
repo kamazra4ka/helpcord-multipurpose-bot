@@ -76,7 +76,7 @@ client.on('ready', async () => {
                     case 'SERVER_BAN':
                         guild = client.guilds.cache.get(punishment.punishment_server_id);
                         try {
-                            await guild.members.unban(punishment.punishment_user_id, `Ban has ended`);
+                            await guild.members.unban(punishment.punishment_user_id, `Ban has ended | Reason: ${punishment.punishment_reason} | Moderator: ${punishment.punishment_moderator_id}`);
                         } catch (e) {
                             console.log(e)
                         }
@@ -329,6 +329,7 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
+    console.log(message.content)
     await writeMessage(message.content, message.guild.id);
 });
 
